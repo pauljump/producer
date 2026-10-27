@@ -184,3 +184,8 @@ def back(name: str, mid: str):
 @app.exception_handler(RuntimeError)
 def runtime_error(_, exc: RuntimeError):
     return JSONResponse({"error": str(exc)}, status_code=400)
+
+
+@app.get("/api/health")
+def health():
+    return {"ok": True}

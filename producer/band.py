@@ -97,6 +97,25 @@ def translate(words: str, musician: dict, take: dict, song_map: dict) -> dict:
     return parse_json(models.text(resp))
 
 
+ORIGINALS = """You are the bandleader. Before anyone new is hired, introduce the people already on
+this recording as members of the band. Give each one a character, as if they had made this
+music on purpose: name, feel, what they did on this take. They are the heart of the session.
+
+SONG MAP: {song_map}
+
+JSON only: {{"originals": [{{"name": "a first name", "role": "e.g. singer and guitarist",
+ "feel": "...", "what_they_played": "one plain sentence about this recording",
+ "one_line": "how they'd introduce themselves to the producer"}}]}}
+One entry per real performer (not per instrument if one person plays two)."""
+
+
+def cast_originals(song_map: dict) -> list[dict]:
+    resp = models.chat("meta", models.WONDER, [{"role": "user", "content": ORIGINALS.format(song_map=json.dumps(song_map))}],
+                       purpose="bandleader: characters for the original performers", estimate_usd=0.1, max_tokens=12000,
+                       reasoning_effort="low")
+    return parse_json(models.text(resp)).get("originals", [])
+
+
 def cast(ask: str, song_map: dict) -> dict:
     resp = models.chat("meta", models.WONDER, [{"role": "user", "content": CAST.format(ask=ask, song_map=json.dumps(song_map))}],
                        purpose="bandleader: cast musician", estimate_usd=0.1, max_tokens=6000)

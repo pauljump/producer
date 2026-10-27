@@ -179,8 +179,8 @@ async function refresh(){
 function drawStage(){
   const st = $('#stage'); st.innerHTML = '';
   S.originals.forEach(o => {
-    st.insertAdjacentHTML('beforeend', `<div class="card orig"><div class="pic" style="background-image:url(${o.card||''})"><span class="tag">on the recording</span></div>
-      <div class="meta"><div class="inst">${o.who}</div></div></div>`);
+    st.insertAdjacentHTML('beforeend', `<div class="card orig" title="${(o.one_line||'').replace(/"/g,'&quot;')}"><div class="pic" style="background-image:url(${o.card||''})"><span class="tag">on the recording</span></div>
+      <div class="meta"><div class="name">${o.name||''}</div><div class="inst">${o.role||''}</div></div></div>`);
   });
   S.musicians.forEach(m => {
     const c = m.character, t = current(m), kept = m.kept != null && t === m.takes[m.kept];

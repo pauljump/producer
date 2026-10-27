@@ -37,7 +37,8 @@ class Session:
         (s.dir / "analysis.json").write_text(json.dumps(a))
         heard = ears.listen(wav, a, stems)
         s.state = {"name": name, "song": str(wav), "stems": str(stems), "harmony": list(harmony), "vocals": vocals,
-                   "song_map": heard["song_map"], "phrases": heard["phrases"], "musicians": {}, "log": []}
+                   "song_map": heard["song_map"], "phrases": heard["phrases"], "musicians": {}, "log": [],
+                   "originals": band.cast_originals(heard["song_map"])}
         s.save()
         return s
 

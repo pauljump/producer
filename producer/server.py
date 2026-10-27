@@ -63,6 +63,11 @@ def _musician_card(s: Session, mid: str):
                   f"{c['feel']} Warm dim studio light, oil painting texture, head and shoulders, no text, no logos.")
 
 
+def _original_card(s: Session, i: int, o: dict):
+    _card(s, f"original-{i}", f"Painted portrait of {o['name']}, {o['role']}, {o['feel']} Playing live in a small venue, "
+                              "warm stage light, oil painting texture, head and shoulders, no text, no logos.")
+
+
 def _slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:40] or "song"
 
@@ -96,10 +101,8 @@ def get(name: str):
                   "solo": f"/files/{name}/takes/{mid}-{i}.solo.mp3"} for i, t in enumerate(m["takes"])]
         musicians.append({"id": mid, "character": m["character"], "kept": m["kept"], "takes": takes,
                           "card": f"/files/{name}/cards/{mid}.png" if (s.dir / "cards" / f"{mid}.png").exists() else None})
-    people = st["song_map"].get("performers") or [{"role": w} for w in st["song_map"].get("who_is_on_the_recording", [])]
-    originals = [{"who": p.get("role", ""), "plays": p.get("plays", ""),
-                  "card": f"/files/{name}/cards/original-{i}.png" if (s.dir / "cards" / f"original-{i}.png").exists() else None}
-                 for i, p in enumerate(people)]
+    originals = [{**o, "card": f"/files/{name}/cards/original-{i}.png" if (s.dir / "cards" / f"original-{i}.png").exists() else None}
+                 for i, o in enumerate(st.get("originals", []))]
     return {"name": name, "ready": True, "status": status, "error": err, "song": f"/files/{name}/song.mp3",
             "song_map": {k: st["song_map"].get(k) for k in ("title_guess", "tempo_bpm", "key", "feel", "sections", "the_song_is_about")},
             "originals": originals, "musicians": musicians, "log": st["log"][-30:]}
@@ -132,10 +135,8 @@ async def upload(file: UploadFile = File(...), name: str = Form("")):
         s = Session.create(slug, wav, stems_root / "htdemucs_6s" / "upload")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", s.state["song"], "-b:a", "192k", str(s.dir / "song.mp3")], check=True)
         _status(slug, "Drawing the people on your recording")
-        people = s.state["song_map"].get("performers") or [{"role": w} for w in s.state["song_map"].get("who_is_on_the_recording", [])]
-        for i, who in enumerate(f'{p.get("role", "")}, {p.get("plays", "")}' for p in people[:3]):
-            _card(s, f"original-{i}", f"Painted portrait of a musician: {who}. Live small venue, warm stage light, "
-                                      "oil painting texture, head and shoulders, no text, no logos.")
+        for i, o in enumerate(s.state.get("originals", [])[:4]):
+            _original_card(s, i, o)
     _status(slug, "Getting set up")
     _job(slug, "Getting set up", build)
     return {"name": slug}

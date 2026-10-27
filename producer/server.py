@@ -21,6 +21,38 @@ from .session import ROOT, Session
 
 WEB = Path(__file__).resolve().parent.parent / "web"
 app = FastAPI(title="Producer")
+PRIVATE_HOSTS = ("127.0.0.1", "localhost", "pauls-mac-mini")
+
+
+def _access_code() -> str | None:
+    from .keys import key
+    try:
+        return key("PRODUCER_ACCESS_CODE")
+    except RuntimeError:
+        return None
+
+
+@app.middleware("http")
+async def gate(request, call_next):
+    """On the tailnet or localhost, open. Anywhere else (the public hostname), every paid action
+    is behind an access code, given once and kept in a cookie."""
+    from fastapi.responses import HTMLResponse, RedirectResponse
+    host = (request.headers.get("host") or "").split(":")[0]
+    code = _access_code()
+    if host.startswith(PRIVATE_HOSTS) or request.url.path in ("/api/health",):
+        return await call_next(request)
+    if code is None:
+        return JSONResponse({"error": "closed"}, status_code=503)
+    if request.query_params.get("code") == code:
+        resp = RedirectResponse(str(request.url.remove_query_params("code")))
+        resp.set_cookie("producer_code", code, max_age=60 * 60 * 24 * 14, httponly=True, secure=True, samesite="lax")
+        return resp
+    if request.cookies.get("producer_code") != code:
+        return HTMLResponse("<!doctype html><meta name=viewport content='width=device-width'><body style='background:#14110f;"
+                            "color:#f3ebe1;font:16px system-ui;display:grid;place-items:center;height:90vh'><form>"
+                            "<p>You are the producer. Enter your access code.</p><input name=code autofocus "
+                            "style='font-size:18px;padding:10px;border-radius:10px'> <button>Enter</button></form>", 401)
+    return await call_next(request)
 _locks: dict[str, threading.Lock] = {}
 
 

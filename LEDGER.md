@@ -6,8 +6,8 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 
 | Provider | Spent | Credit |
 |---|---:|---:|
-| meta | $16.6491 | $150 |
-| baseten | $1.8706 | $100 |
+| meta | $19.0275 | $150 |
+| baseten | $1.9451 | $100 |
 | modal | $0.0000 | $100 |
 
 ## By day
@@ -15,7 +15,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | Day | Meta | Baseten | Modal |
 |---|---:|---:|---:|
 | 2026-10-26 | $2.7274 | $0.0203 | $0.0000 |
-| 2026-10-27 | $13.9217 | $1.8503 | $0.0000 |
+| 2026-10-27 | $16.3001 | $1.9248 | $0.0000 |
 
 ## By purpose
 
@@ -27,11 +27,15 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-wonder-1.0 | bandleader: translate taste | 7 | $1.0933 |
 | meta | muse-wonder-1.0 | musician take: Danny (bass) | 5 | $0.9806 |
 | meta | muse-wonder-1.0 | musician take: Mara (bass) | 4 | $0.9206 |
-| baseten | meta-models/muse-spark-open-1026 | self-check drums take | 70 | $0.4300 |
+| meta | muse-wonder-1.0 | musician research: Ray | 1 | $0.7727 |
+| meta | muse-wonder-1.0 | musician research: Ellis | 1 | $0.5208 |
+| baseten | meta-models/muse-spark-open-1026 | self-check drums take | 80 | $0.4659 |
+| meta | muse-wonder-1.0 | musician take: Ellis (drums) | 2 | $0.4235 |
+| meta | muse-wonder-1.0 | bandleader: cast musician | 8 | $0.4005 |
 | baseten | meta-models/muse-spark-open-1026 | self-check keys take | 60 | $0.3573 |
-| meta | muse-wonder-1.0 | bandleader: cast musician | 6 | $0.3076 |
+| meta | muse-wonder-1.0 | musician take: Ray (bass) | 2 | $0.3197 |
+| baseten | meta-models/muse-spark-open-1026 | self-check bass take | 60 | $0.2788 |
 | meta | muse-wonder-1.0 | bandleader song map: watchtower-70s | 2 | $0.2573 |
-| baseten | meta-models/muse-spark-open-1026 | self-check bass take | 50 | $0.2402 |
 | meta | muse-wonder-1.0 | self-check pairwise test: random timing (wonder) | 6 | $0.1828 |
 | meta | muse-wonder-1.0 | bandleader: characters for the original performers | 2 | $0.1763 |
 | meta | muse-wonder-1.0 | bandleader song map: sketch-free | 1 | $0.1705 |
@@ -40,11 +44,13 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-wonder-1.0 | self-check pairwise test: late 150ms (wonder) | 6 | $0.1346 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass planted test: good | 19 | $0.1297 |
 | meta | muse-spark-1.2 | ears phrase: watchtower-70s | 16 | $0.1221 |
+| meta | muse-wonder-1.0 | web search grounding test | 1 | $0.1192 |
 | baseten | meta-models/muse-spark-open-1026 | self-check pairwise test: wrong key (+1) | 21 | $0.1186 |
 | meta | muse-wonder-1.0 | bandleader song map: holdon-90s | 1 | $0.1164 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass planted test: wrong key (+1) | 16 | $0.1136 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass planted test: late 150ms | 17 | $0.1096 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass planted test: random timing | 17 | $0.1066 |
+| meta | muse-wonder-1.0 | bandleader agent | 4 | $0.0987 |
 | baseten | meta-models/muse-spark-open-1026 | self-check pairwise test: random timing | 17 | $0.0957 |
 | baseten | meta-models/muse-spark-open-1026 | self-check pairwise test: late 150ms | 11 | $0.0621 |
 | meta | muse-spark-1.2 | ears phrase: holdon-90s | 9 | $0.0608 |
@@ -56,6 +62,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-spark-1.2 | self-check pairwise test: random timing (spark-1.2) | 6 | $0.0359 |
 | meta | muse-spark-1.2 | self-check pairwise test: wrong key (+1) (spark-1.2) | 6 | $0.0326 |
 | meta | muse-spark-1.2 | ears: producer hum sketch | 5 | $0.0317 |
+| meta | muse-wonder-1.0 | bandleader: album art brief | 1 | $0.0210 |
 | baseten | meta-models/muse-spark-open-1026 | self-check probe: prompt shape | 4 | $0.0205 |
 | meta | muse-image-1.0 | musician card: original-0 | 2 | $0.0200 |
 | meta | muse-image-1.0 | musician card: original-1 | 2 | $0.0200 |
@@ -68,6 +75,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-image-1.0 | musician card: bass-maggie | 1 | $0.0100 |
 | meta | muse-image-1.0 | musician card: drums-marty | 1 | $0.0100 |
 | meta | muse-image-1.0 | musician card: keys-eddie | 1 | $0.0100 |
+| meta | muse-image-1.0 | album art | 1 | $0.0100 |
 | meta | muse-spark-1.2 | ears debug: h30.wav | 1 | $0.0077 |
 | meta | muse-spark-1.2 | ears blind: sketch-0325 | 1 | $0.0065 |
 | baseten | meta-models/muse-spark-open-1026 | ears model comparison: holdon 90s | 1 | $0.0060 |

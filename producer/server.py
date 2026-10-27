@@ -139,7 +139,8 @@ def get(name: str):
             "song_map": {k: st["song_map"].get(k) for k in ("title_guess", "tempo_bpm", "key", "feel", "sections", "the_song_is_about")},
             "originals": originals, "musicians": musicians, "log": st["log"][-30:],
             "album": f"/files/{name}/cards/album.png" if (s.dir / "cards" / "album.png").exists() else None,
-            "final": f"/files/{name}/final.mp3" if (s.dir / "final.mp3").exists() else None}
+            "final": f"/files/{name}/final.mp3" if (s.dir / "final.mp3").exists() else None,
+            "bandleader": json.loads((s.dir / "bandleader.json").read_text()) if (s.dir / "bandleader.json").exists() else None}
 
 
 @app.get("/files/{name}/{path:path}")
@@ -214,6 +215,22 @@ async def sketch(name: str, mid: str, kind: str = Form("hum"), words: str = Form
         Session(name).sketch(mid, raw, kind, words)
     _job(name, "They're learning your idea" if kind == "hum" else "They're learning your groove", run)
     return {"ok": True}
+
+
+@app.post("/api/session/{name}/band")
+async def talk_to_band(name: str, words: str = Form(""), voice: UploadFile | None = File(None)):
+    if voice is not None:
+        from .steer import _convert
+        wav = _convert(await voice.read(), "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le")
+        words = models.transcribe(wav, len(wav) / 32000)
+    if not words.strip():
+        raise HTTPException(400, "say something")
+
+    def run():
+        r = Session(name).ask_band(words)
+        (ROOT / name / "bandleader.json").write_text(json.dumps(r, default=str))
+    _job(name, "The bandleader is on it", run)
+    return {"heard": words}
 
 
 @app.post("/api/session/{name}/finish")

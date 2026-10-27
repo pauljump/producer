@@ -82,7 +82,15 @@ input[type=text]:focus{outline:none;border-color:var(--warm)}
     <div class="stage" id="stage"></div>
 
     <section>
-      <div class="label">Hire someone</div>
+      <div class="label">Talk to the band</div>
+      <div class="desk" style="grid-template-columns:1fr">
+        <div class="says" id="leader">Tell the bandleader what you want. "Give me a bass and drums, keep the verses sparse, let the chorus lift."</div>
+        <div class="row"><input type="text" id="bandwords" placeholder="Say it to the whole band"><button class="btn" id="bandsend">Tell the band</button></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Or hire one player</div>
       <div class="invite">
         <button class="btn" data-ask="Invite a bassist">Bassist</button>
         <button class="btn" data-ask="Add a drummer">Drummer</button>
@@ -191,7 +199,7 @@ async function refresh(){
   $('#title').textContent = sm.title_guess || name;
   $('#sub').textContent = sm.the_song_is_about || '';
   $('#facts').innerHTML = [sm.key, sm.tempo_bpm && Math.round(sm.tempo_bpm) + ' BPM'].filter(Boolean).map(x => `<span class="chip">${x}</span>`).join('');
-  drawStage(); drawTimeline(); drawDesk(); drawRecord(); await loadAudio();
+  drawStage(); drawTimeline(); drawDesk(); drawRecord(); drawLeader(); await loadAudio();
 }
 function drawStage(){
   const st = $('#stage'); st.innerHTML = '';
@@ -234,6 +242,9 @@ function drawDesk(){
   $('#researchsrc').innerHTML = (r.sources || []).map(u => `<a class="chip" target="_blank" rel="noopener" href="${u}">${new URL(u).hostname}</a>`).join('');
 }
 
+function drawLeader(){ if (S.bandleader && S.bandleader.reply) $('#leader').textContent = S.bandleader.reply; }
+$('#bandsend').onclick = () => { const w = $('#bandwords').value.trim(); if (w) { act(`/api/session/${name}/band`, {words: w}); $('#bandwords').value = ''; } };
+$('#bandwords').onkeydown = e => e.key === 'Enter' && $('#bandsend').click();
 function drawRecord(){
   if (S.album) { $('#album').src = S.album; $('#album').style.display = 'block'; }
   if (S.final) { const a = $('#final'); if (!a.src.endsWith(S.final)) a.src = S.final; a.style.display = 'block'; $('#finalnote').textContent = 'The finished song.'; }

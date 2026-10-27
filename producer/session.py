@@ -16,6 +16,7 @@ from . import analysis as measure
 from . import band, ears, hands, score, selfcheck
 
 ROOT = Path(__file__).resolve().parent.parent / "sessions"
+_SAVE = __import__("threading").Lock()
 
 
 class Session:
@@ -43,7 +44,10 @@ class Session:
         return s
 
     def save(self):
-        self.path.write_text(json.dumps(self.state, indent=1, default=float))
+        with _SAVE:
+            tmp = self.path.with_suffix(".tmp")
+            tmp.write_text(json.dumps(self.state, indent=1, default=float))
+            tmp.replace(self.path)
 
     def log(self, event: str, **kw):
         self.state["log"].append({"ts": time.strftime("%H:%M:%S"), "event": event, **kw})
@@ -116,15 +120,27 @@ class Session:
 
     # ---------- the producer's vocabulary ----------
     def invite(self, ask: str) -> str:
+        mid = self.hire(ask)
+        self._play(mid)
+        return mid
+
+    def ask_band(self, words: str) -> dict:
+        """Talk to the whole band; Muse Wonder as bandleader decides who plays what."""
+        from . import bandleader
+        return bandleader.ask_band(self, words)
+
+    def hire(self, ask: str) -> str:
         character = band.cast(ask, self.state["song_map"])
         try:
             character["research"] = band.research(character, self.state["song_map"])
         except Exception as e:  # research is a bonus; the session goes on without it
             character["research"] = {"text": "", "sources": [], "error": str(e)[:200]}
         mid = f'{character["instrument"].replace(" ", "-")}-{character["name"].lower()}'
+        while mid in self.state["musicians"]:
+            mid += "-2"
         self.state["musicians"][mid] = {"character": character, "takes": [], "kept": None, "asked": ask}
         self.log("invite", musician=mid, ask=ask)
-        self._play(mid)
+        self.save()
         return mid
 
     def direct(self, mid: str, words: str) -> dict:
@@ -169,6 +185,9 @@ class Session:
         m = self.state["musicians"][mid]
         ch = m["character"]
         said, translation = kw.pop("said", None), kw.pop("translation", None)
+        plan_note = kw.pop("plan_note", None)
+        if plan_note:
+            ch = {**ch, "plan": f'{plan_note} (Your own plan was: {ch.get("plan", "")})'}
         take = band.play(ch, self.analysis, self.state["song_map"], self.chart(), self._audio_part(),
                          engineer=self.engineer(ch["instrument"]), **kw)
         take["producer_said"], take["translation"] = said, translation

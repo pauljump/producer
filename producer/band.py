@@ -96,7 +96,8 @@ start of their idea; notes are as hummed, in any octave and maybe a little off k
 Listening to it, our ears say: {heard}
 Turn the sketch into the instruction: where in the song it belongs, transposed into the song's
 key and the player's register, simplified or developed in the player's character. The producer
-wants to hear their idea in the part, recognisably."""
+wants to hear their idea in the part, recognisably. If they said where it goes, it goes there,
+even if you would have put it somewhere else."""
 
 
 def translate(words: str, musician: dict, take: dict, song_map: dict, sketch: dict | None = None) -> dict:

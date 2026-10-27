@@ -476,3 +476,17 @@
 {"ts": "2026-10-27T19:00:04", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.001945, "prompt_tokens": 1043, "completion_tokens": 151}
 {"ts": "2026-10-27T19:00:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.00858, "prompt_tokens": 1319, "completion_tokens": 1631}
 {"ts": "2026-10-27T19:00:57", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer hum sketch", "usd": 0.004372, "prompt_tokens": 121, "completion_tokens": 993}
+{"ts": "2026-10-27T19:01:45", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer hum sketch", "usd": 0.008504, "prompt_tokens": 187, "completion_tokens": 1946}
+{"ts": "2026-10-27T19:04:11", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: translate taste", "usd": 0.316288, "prompt_tokens": 4037, "completion_tokens": 15007}
+{"ts": "2026-10-27T19:04:36", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Maggie (bass)", "usd": 0.136396, "prompt_tokens": 8604, "completion_tokens": 5099}
+{"ts": "2026-10-27T19:04:50", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Maggie (bass)", "usd": 0.112624, "prompt_tokens": 11321, "completion_tokens": 3367}
+{"ts": "2026-10-27T19:04:56", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002862, "prompt_tokens": 1154, "completion_tokens": 334}
+{"ts": "2026-10-27T19:04:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002382, "prompt_tokens": 1154, "completion_tokens": 221}
+{"ts": "2026-10-27T19:04:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002203, "prompt_tokens": 1154, "completion_tokens": 179}
+{"ts": "2026-10-27T19:04:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.003015, "prompt_tokens": 1154, "completion_tokens": 370}
+{"ts": "2026-10-27T19:05:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004864, "prompt_tokens": 1596, "completion_tokens": 675}
+{"ts": "2026-10-27T19:05:04", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007123, "prompt_tokens": 1710, "completion_tokens": 1173}
+{"ts": "2026-10-27T19:05:05", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006063, "prompt_tokens": 1559, "completion_tokens": 968}
+{"ts": "2026-10-27T19:05:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.009019, "prompt_tokens": 1751, "completion_tokens": 1607}
+{"ts": "2026-10-27T19:05:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002278, "prompt_tokens": 1091, "completion_tokens": 215}
+{"ts": "2026-10-27T19:05:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005464, "prompt_tokens": 1529, "completion_tokens": 836}

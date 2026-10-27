@@ -85,15 +85,18 @@ def loudness(x: np.ndarray) -> float:
     return pyln.Meter(SR).integrated_loudness(x) if np.abs(x).max() > 1e-6 else -70.0
 
 
+def at_level(song: np.ndarray, audio: np.ndarray, rel: float) -> np.ndarray:
+    """Scale a rendered part so it sits `rel` LU relative to the song's loudness."""
+    lu = loudness(audio)
+    return audio * 10 ** ((loudness(song) + rel - lu) / 20) if lu > -70 else audio
+
+
 def mix(song: np.ndarray, parts: list[tuple[np.ndarray, float]]) -> np.ndarray:
     """Mix rendered parts under the song. Each part comes with a level in LU relative to the
     song's loudness (e.g. -4.0 = four LU under the recording); levels are the musicians' call."""
-    ref = loudness(song)
     out = song.copy()
     for audio, rel in parts:
-        lu = loudness(audio)
-        if lu > -70:
-            out += audio * 10 ** ((ref + rel - lu) / 20)
+        out += at_level(song, audio, rel)
     peak = np.abs(out).max()
     return out / peak * 0.95 if peak > 0.95 else out
 

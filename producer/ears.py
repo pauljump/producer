@@ -45,6 +45,7 @@ MEASURED:
 Write the song map the session musicians will play from. JSON only:
 {{"title_guess": "...",
  "who_is_on_the_recording": ["the performers and instruments really on it"],
+ "performers": [{"role": "e.g. singer and guitarist", "plays": "what they do on this recording"}],
  "tempo_bpm": n, "meter": "...", "key": "...",
  "reconciliation": "where measurements and ears disagreed and what you decided",
  "sections": [{{"start": s, "end": s, "label": "intro|verse 1|chorus 1|...", "lyrics": "...", "energy": 1-5,

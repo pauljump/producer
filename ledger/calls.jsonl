@@ -353,3 +353,10 @@
 {"ts": "2026-10-27T04:29:08", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.00498, "prompt_tokens": 1448, "completion_tokens": 746}
 {"ts": "2026-10-27T04:29:11", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.002247, "prompt_tokens": 1043, "completion_tokens": 222}
 {"ts": "2026-10-27T04:29:16", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.004419, "prompt_tokens": 1400, "completion_tokens": 628}
+{"ts": "2026-10-27T04:30:18", "provider": "meta", "model": "muse-voice-transcribe-1.0", "purpose": "voice transcribe test", "usd": 0.00015, "seconds": 3}
+{"ts": "2026-10-27T04:30:28", "provider": "meta", "model": "muse-image-1.0", "purpose": "image test", "usd": 0.01}
+{"ts": "2026-10-27T04:32:36", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: bass-maggie", "usd": 0.01}
+{"ts": "2026-10-27T04:32:45", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: drums-marty", "usd": 0.01}
+{"ts": "2026-10-27T04:32:59", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-0", "usd": 0.01}
+{"ts": "2026-10-27T04:33:08", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-1", "usd": 0.01}
+{"ts": "2026-10-27T04:33:25", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-2", "usd": 0.01}

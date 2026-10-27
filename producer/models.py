@@ -51,3 +51,26 @@ def baseten_audio_part(path: Path) -> dict:
 
 def text(resp) -> str:
     return resp.choices[0].message.content or ""
+
+
+def transcribe(wav: bytes, seconds: float, purpose: str = "producer direction") -> str:
+    """Muse Voice Transcribe: the producer's spoken direction. wav = mono 16-bit PCM at 16 or 24 kHz."""
+    import httpx
+
+    usd = ledger.TRANSCRIBE_USD_PER_HOUR * max(seconds, 1) / 3600
+    ledger.guard(usd, "meta")
+    r = httpx.post(f"{META_BASE}/asr/transcribe", headers={"Authorization": f"Bearer {key('META_API_KEY')}"},
+                   files={"request": (None, '{"mode":"PUSH_TO_TALK","model":"muse-voice-transcribe-1.0","audioEncoding":"WAV"}', "application/json"),
+                          "audio": ("say.wav", wav, "audio/wav")}, timeout=120)
+    r.raise_for_status()
+    ledger.record("meta", "muse-voice-transcribe-1.0", purpose, usd, seconds=round(seconds, 1))
+    return r.json().get("transcript", "")
+
+
+def image(prompt: str, purpose: str, size: str = "1024x1024") -> bytes:
+    """Muse Image: one image, returned as PNG bytes."""
+    ledger.guard(ledger.IMAGE_USD, "meta")
+    resp = _client("meta").images.generate(model="muse-image-1.0", prompt=prompt, n=1, size=size,
+                                           response_format="b64_json", extra_body={"output_format": "png"})
+    ledger.record("meta", "muse-image-1.0", purpose, ledger.IMAGE_USD)
+    return base64.b64decode(resp.data[0].b64_json)

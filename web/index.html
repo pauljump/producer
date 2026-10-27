@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Producer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14110f;--panel:#1d1916;--line:#2e2823;--ink:#f3ebe1;--dim:#a89b8c;--faint:#6f645a;--warm:#e8a35c;--warm2:#f0c189;--ok:#9cc59a;--bad:#e07b6a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 140px}
+h1{font:600 30px/1.1 Fraunces,Georgia,serif;margin:0}
+.sub{color:var(--dim);margin-top:6px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--dim);font-size:13px;margin:4px 6px 0 0}
+section{margin-top:28px}
+.label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.stage{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;position:relative}
+.card:hover{transform:translateY(-2px)}
+.card.sel{border-color:var(--warm)}
+.card.orig{cursor:default;opacity:.85}
+.card .pic{aspect-ratio:1;background:#241f1b center/cover;position:relative}
+.card .glow{position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--warm);transition:box-shadow .08s}
+.card .meta{padding:10px 12px 12px}
+.card .name{font:600 17px Fraunces,serif}
+.card .inst{color:var(--dim);font-size:13px}
+.card .tag{position:absolute;top:8px;left:8px;background:#000a;border-radius:999px;padding:1px 8px;font-size:12px;color:var(--warm2)}
+.card .sm{display:flex;gap:6px;margin-top:8px}
+.btn{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font:500 14px Inter;cursor:pointer}
+.btn:hover{border-color:var(--dim)}
+.btn.on{background:var(--warm);color:#1a120a;border-color:var(--warm)}
+.btn.big{padding:12px 20px;font-size:16px;border-radius:12px}
+.btn.keep{background:var(--ok);color:#0f1a0f;border-color:var(--ok)}
+.btn.back{border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.4;cursor:default}
+.invite{display:flex;flex-wrap:wrap;gap:8px}
+.timeline{position:relative;height:46px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer}
+.sec{position:absolute;top:0;bottom:0;border-right:1px solid var(--line);padding:6px 8px;font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden}
+.head{position:absolute;top:0;bottom:0;width:2px;background:var(--warm2)}
+.desk{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;grid-template-columns:120px 1fr;gap:18px}
+.desk img{width:120px;height:120px;border-radius:12px;object-fit:cover;background:#241f1b}
+.says{font:400 19px/1.45 Fraunces,serif}
+.said{color:var(--dim);font-size:14px;margin-top:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+input[type=text]{flex:1;min-width:220px;background:#120f0d;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;font:16px Inter}
+input[type=text]:focus{outline:none;border-color:var(--warm)}
+.mic.rec{background:var(--bad);border-color:var(--bad);color:#fff}
+.busy{position:fixed;left:0;right:0;bottom:0;background:#0d0b09ee;border-top:1px solid var(--line);padding:14px 16px;display:none}
+.busy.show{display:block}
+.busy .in{max-width:1080px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--warm);animation:p 1.2s infinite}
+@keyframes p{50%{opacity:.25}}
+.drop{border:1.5px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--dim)}
+.drop.over{border-color:var(--warm)}
+.transport{position:fixed;left:0;right:0;bottom:0;background:#0d0b09f2;border-top:1px solid var(--line);padding:12px 16px}
+.transport .in{max-width:1080px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.time{color:var(--dim);font-variant-numeric:tabular-nums;min-width:90px}
+@media (max-width:640px){.stage{grid-template-columns:repeat(2,1fr);gap:10px}.card .meta{padding:8px 10px 10px}.desk{grid-template-columns:1fr}.desk img{width:84px;height:84px}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1 id="title">You are the producer.</h1>
+      <div class="sub" id="sub">Bring a recording. Hire the band. Say what you feel.</div>
+      <div id="facts"></div>
+    </div>
+  </div>
+
+  <section id="start">
+    <div class="drop" id="drop">Drop an unfinished recording here, or <label class="btn" style="display:inline-block">choose a file<input type="file" id="file" accept="audio/*" hidden></label>
+      <div id="existing" style="margin-top:16px"></div>
+    </div>
+  </section>
+
+  <section id="room" hidden>
+    <div class="label">The band</div>
+    <div class="stage" id="stage"></div>
+
+    <section>
+      <div class="label">Hire someone</div>
+      <div class="invite">
+        <button class="btn" data-ask="Invite a bassist">Bassist</button>
+        <button class="btn" data-ask="Add a drummer">Drummer</button>
+        <button class="btn" data-ask="Bring in someone on keys">Keys</button>
+        <button class="btn" data-ask="Add strings">Strings</button>
+        <button class="btn" data-ask="Add an organ player">Organ</button>
+        <input type="text" id="askfree" placeholder="or say who you want: &quot;someone to make the chorus lift&quot;" style="min-width:260px">
+      </div>
+    </section>
+
+    <section id="deskwrap" hidden>
+      <div class="label">At the desk</div>
+      <div class="desk">
+        <img id="deskpic" alt="">
+        <div>
+          <div class="says" id="desksays"></div>
+          <div class="said" id="desksaid"></div>
+          <div class="row">
+            <input type="text" id="words" placeholder="Say what you feel: too busy, I don't believe it, the chorus should feel like relief">
+            <button class="btn mic" id="mic" title="Hold to talk">Hold to talk</button>
+            <button class="btn" id="send">Play it again</button>
+          </div>
+          <div class="row">
+            <button class="btn big keep" id="keep">Keep</button>
+            <button class="btn big back" id="back">Send it back</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">The song</div>
+      <div class="timeline" id="timeline"><div class="head" id="head"></div></div>
+    </section>
+  </section>
+</div>
+
+<div class="transport" id="transport" hidden><div class="in">
+  <button class="btn big" id="play">Play</button>
+  <span class="time" id="clock">0:00</span>
+  <span class="sub" id="mixnote" style="margin:0"></span>
+</div></div>
+<div class="busy" id="busy"><div class="in"><div class="dot"></div><div id="doing"></div></div></div>
+
+<script>
+const $ = s => document.querySelector(s);
+let S = null, name = new URLSearchParams(location.search).get('s'), sel = null;
+const tracks = {};          // id -> {url, buffer, gain, analyser}
+const state = {solo: null, muted: new Set()};
+let ctx, startedAt = 0, offset = 0, playing = false, sources = [], duration = 1;
+
+async function api(path, form) {
+  const r = await fetch(path, form ? {method: 'POST', body: form} : {});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.detail || j.error || r.statusText);
+  return j;
+}
+function fmt(t){t=Math.max(0,t|0);return `${t/60|0}:${String(t%60).padStart(2,'0')}`}
+
+// ---------- start ----------
+async function listSessions(){
+  const all = await api('/api/sessions');
+  $('#existing').innerHTML = all.length ? 'Or open a session: ' + all.map(n => `<a class="chip" href="?s=${n}">${n}</a>`).join('') : '';
+}
+async function upload(f){
+  const fd = new FormData(); fd.append('file', f); fd.append('name', f.name.replace(/\.[^.]+$/, ''));
+  const j = await api('/api/session', fd);
+  location.search = '?s=' + j.name;
+}
+$('#file').onchange = e => e.target.files[0] && upload(e.target.files[0]);
+const drop = $('#drop');
+drop.ondragover = e => {e.preventDefault(); drop.classList.add('over')};
+drop.ondragleave = () => drop.classList.remove('over');
+drop.ondrop = e => {e.preventDefault(); drop.classList.remove('over'); e.dataTransfer.files[0] && upload(e.dataTransfer.files[0])};
+
+// ---------- session ----------
+function current(m){ // the take the producer is hearing: latest not sent back, else the kept one
+  for (let i = m.takes.length - 1; i >= 0; i--) if (!m.takes[i].sent_back) return m.takes[i];
+  return m.kept != null ? m.takes[m.kept] : null;
+}
+async function refresh(){
+  S = await api('/api/session/' + name);
+  $('#busy').classList.toggle('show', !!S.status.busy);
+  $('#doing').textContent = S.status.doing || '';
+  if (S.error) $('#doing').textContent = 'Something went wrong: ' + S.error.error;
+  if (!S.ready) { $('#start').hidden = true; $('#busy').classList.add('show'); return; }
+  $('#start').hidden = true; $('#room').hidden = false; $('#transport').hidden = false;
+  const sm = S.song_map;
+  $('#title').textContent = sm.title_guess || name;
+  $('#sub').textContent = sm.the_song_is_about || '';
+  $('#facts').innerHTML = [sm.key, sm.tempo_bpm && Math.round(sm.tempo_bpm) + ' BPM'].filter(Boolean).map(x => `<span class="chip">${x}</span>`).join('');
+  drawStage(); drawTimeline(); drawDesk(); await loadAudio();
+}
+function drawStage(){
+  const st = $('#stage'); st.innerHTML = '';
+  S.originals.forEach(o => {
+    st.insertAdjacentHTML('beforeend', `<div class="card orig"><div class="pic" style="background-image:url(${o.card||''})"><span class="tag">on the recording</span></div>
+      <div class="meta"><div class="inst">${o.who}</div></div></div>`);
+  });
+  S.musicians.forEach(m => {
+    const c = m.character, t = current(m), kept = m.kept != null && t === m.takes[m.kept];
+    const el = document.createElement('div');
+    el.className = 'card' + (sel === m.id ? ' sel' : '');
+    el.innerHTML = `<div class="pic" style="background-image:url(${m.card||''})"><div class="glow" id="glow-${m.id}"></div>
+      <span class="tag">${kept ? 'kept' : t ? 'take ' + (t.n + 1) : 'sent back'}</span></div>
+      <div class="meta"><div class="name">${c.name}</div><div class="inst">${c.instrument}</div>
+      <div class="sm"><button class="btn ${state.solo===m.id?'on':''}" data-solo="${m.id}">Solo</button>
+      <button class="btn ${state.muted.has(m.id)?'on':''}" data-mute="${m.id}">Mute</button></div></div>`;
+    el.onclick = e => { if (e.target.dataset.solo || e.target.dataset.mute) return; sel = m.id; drawStage(); drawDesk(); };
+    st.appendChild(el);
+  });
+  st.querySelectorAll('[data-solo]').forEach(b => b.onclick = () => { state.solo = state.solo === b.dataset.solo ? null : b.dataset.solo; applyGains(); drawStage(); });
+  st.querySelectorAll('[data-mute]').forEach(b => b.onclick = () => { const id = b.dataset.mute; state.muted.has(id) ? state.muted.delete(id) : state.muted.add(id); applyGains(); drawStage(); });
+}
+function drawTimeline(){
+  const tl = $('#timeline'); tl.querySelectorAll('.sec').forEach(x => x.remove());
+  const secs = S.song_map.sections || []; duration = secs.length ? secs[secs.length - 1].end : duration;
+  secs.forEach(s => tl.insertAdjacentHTML('afterbegin', `<div class="sec" style="left:${s.start/duration*100}%;width:${(s.end-s.start)/duration*100}%">${s.label}</div>`));
+  tl.onclick = e => { const r = tl.getBoundingClientRect(); seek((e.clientX - r.left) / r.width * duration); };
+}
+function drawDesk(){
+  const m = S.musicians.find(x => x.id === sel) || S.musicians[S.musicians.length - 1];
+  $('#deskwrap').hidden = !m; if (!m) return; sel = m.id;
+  const t = current(m), c = m.character;
+  $('#deskpic').src = m.card || '';
+  $('#desksays').textContent = t ? (t.n === 0 ? `${c.one_line} ${c.plan}` : (t.reply ? t.reply + ' ' : '') + t.to_producer) : `${c.name} is waiting for direction.`;
+  $('#desksaid').textContent = t && t.producer_said ? `You said: "${t.producer_said}"` + (t.engineer_rounds > 1 ? ` · the engineer sent ${t.engineer_rounds - 1} take${t.engineer_rounds > 2 ? 's' : ''} back before you heard it` : '') : (t && t.engineer_rounds > 1 ? `The engineer sent ${t.engineer_rounds - 1} take${t.engineer_rounds > 2 ? 's' : ''} back before you heard it.` : '');
+  const kept = m.kept != null && t === m.takes[m.kept];
+  $('#keep').disabled = !t || kept; $('#back').disabled = !t;
+}
+
+// ---------- audio ----------
+async function buffer(url){
+  if (!ctx) ctx = new AudioContext();
+  const r = await fetch(url); return ctx.decodeAudioData(await r.arrayBuffer());
+}
+async function loadAudio(){
+  if (!ctx) ctx = new AudioContext();
+  const want = {song: S.song};
+  S.musicians.forEach(m => { const t = current(m); if (t) want[m.id] = t.solo; });
+  let changed = false;
+  for (const [id, url] of Object.entries(want)) {
+    if (tracks[id] && tracks[id].url === url) continue;
+    const g = ctx.createGain(), a = ctx.createAnalyser(); a.fftSize = 256; g.connect(a); a.connect(ctx.destination);
+    tracks[id] = {url, buffer: await buffer(url), gain: g, analyser: a}; changed = true;
+  }
+  for (const id of Object.keys(tracks)) if (!want[id]) { delete tracks[id]; changed = true; }
+  duration = tracks.song.buffer.duration;
+  applyGains();
+  if (changed && playing) { const at = now(); stop(); start(at); }
+}
+function applyGains(){
+  for (const [id, t] of Object.entries(tracks)) {
+    let on = id === 'song' ? !state.solo : (state.solo ? state.solo === id : !state.muted.has(id));
+    if (state.solo && id === 'song') on = false;
+    t.gain.gain.value = on ? 1 : 0;
+  }
+  $('#mixnote').textContent = state.solo ? 'Solo: ' + (S.musicians.find(m => m.id === state.solo)?.character.name || '') : (S.musicians.length ? 'Everyone, with your recording' : 'Your recording, as it is');
+}
+function now(){ return playing ? offset + ctx.currentTime - startedAt : offset; }
+function start(at){
+  offset = Math.max(0, at % duration); startedAt = ctx.currentTime; playing = true; sources = [];
+  for (const t of Object.values(tracks)) { const s = ctx.createBufferSource(); s.buffer = t.buffer; s.connect(t.gain); s.start(0, offset); sources.push(s); }
+  sources[0].onended = () => { if (playing && now() >= duration - 0.05) { stop(); offset = 0; } };
+  $('#play').textContent = 'Pause';
+}
+function stop(){ offset = now(); sources.forEach(s => { try { s.stop() } catch (e) {} }); sources = []; playing = false; $('#play').textContent = 'Play'; }
+function seek(t){ const was = playing; stop(); offset = t; if (was) start(t); }
+$('#play').onclick = async () => { if (!ctx) ctx = new AudioContext(); await ctx.resume(); playing ? stop() : start(offset); };
+const meter = new Uint8Array(128);
+(function tick(){
+  const t = now(); $('#clock').textContent = fmt(t) + ' / ' + fmt(duration);
+  $('#head').style.left = (t / duration * 100) + '%';
+  for (const [id, tr] of Object.entries(tracks)) {
+    if (id === 'song') continue; const g = document.getElementById('glow-' + id); if (!g) continue;
+    tr.analyser.getByteTimeDomainData(meter); let p = 0; for (const v of meter) p = Math.max(p, Math.abs(v - 128));
+    g.style.boxShadow = `inset 0 0 0 ${Math.min(6, p / 12)}px var(--warm)`;
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ---------- the producer's vocabulary ----------
+async function act(path, fields){ const fd = new FormData(); for (const [k, v] of Object.entries(fields || {})) fd.append(k, v);
+  try { await api(path, fd); } catch (e) { alertLine(e.message); } refresh(); }
+function alertLine(t){ $('#doing').textContent = t; $('#busy').classList.add('show'); setTimeout(refresh, 2500); }
+document.querySelectorAll('[data-ask]').forEach(b => b.onclick = () => act(`/api/session/${name}/invite`, {ask: b.dataset.ask}));
+$('#askfree').onkeydown = e => { if (e.key === 'Enter' && e.target.value.trim()) { act(`/api/session/${name}/invite`, {ask: e.target.value}); e.target.value = ''; } };
+$('#send').onclick = () => { const w = $('#words').value.trim(); if (w) { act(`/api/session/${name}/${sel}/say`, {words: w}); $('#words').value = ''; } };
+$('#words').onkeydown = e => e.key === 'Enter' && $('#send').click();
+$('#keep').onclick = () => act(`/api/session/${name}/${sel}/keep`);
+$('#back').onclick = () => act(`/api/session/${name}/${sel}/back`);
+let rec, chunks = [];
+$('#mic').onpointerdown = async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+  rec = new MediaRecorder(stream); chunks = []; rec.ondataavailable = e => chunks.push(e.data);
+  rec.onstop = () => { stream.getTracks().forEach(t => t.stop()); const fd = new FormData(); fd.append('voice', new Blob(chunks), 'say.webm');
+    api(`/api/session/${name}/${sel}/say`, fd).then(j => { $('#desksaid').textContent = `You said: "${j.heard}"`; refresh(); }).catch(e => alertLine(e.message)); };
+  rec.start(); $('#mic').classList.add('rec'); $('#mic').textContent = 'Listening…';
+};
+$('#mic').onpointerup = $('#mic').onpointerleave = () => { if (rec && rec.state === 'recording') { rec.stop(); $('#mic').classList.remove('rec'); $('#mic').textContent = 'Hold to talk'; } };
+
+if (name) { refresh(); setInterval(() => S && (S.status.busy || !S.ready) && refresh(), 2500); }
+else listSessions();
+</script>
+</body>
+</html>

@@ -84,6 +84,26 @@ def chords(chroma_beats: np.ndarray, switch_cost: float = 2.5, sharp: float = 25
     return [names[i] for i in reversed(path)]
 
 
+def diatonic(key: dict) -> list[str]:
+    """Chords that belong to the key (plus the usual borrowed ones: V in minor, bVII in major)."""
+    t = PITCHES.index(key["tonic"])
+    if key["mode"] == "minor":
+        degrees = [(0, "m"), (3, ""), (5, "m"), (7, "m"), (8, ""), (10, ""), (7, ""), (2, "dim")]
+    else:
+        degrees = [(0, ""), (2, "m"), (4, "m"), (5, ""), (7, ""), (9, "m"), (10, "")]
+    return [PITCHES[(t + i) % 12] + q for i, q in degrees if q != "dim"]
+
+
+def chords_in_key(chroma_beats: np.ndarray, key: dict) -> list[str]:
+    """Best chord per beat from the key's own chords only, no smoothing. On a busy live mix this
+    reads the harmonic rhythm far better than the open vocabulary."""
+    names, T = _chord_templates()
+    vocab = [v for v in diatonic(key) if v in names]
+    rows = T[[names.index(v) for v in vocab]]
+    c = chroma_beats / (np.linalg.norm(chroma_beats, axis=0, keepdims=True) + 1e-9)
+    return [vocab[i] for i in (rows @ c).argmax(axis=0)]
+
+
 def sections(y: np.ndarray, downbeats: np.ndarray, k: int | None = None) -> list[dict]:
     """Candidate section boundaries on downbeats, from bar-level self-similarity."""
     if len(downbeats) < 4:
@@ -135,6 +155,7 @@ def analyze(path: Path, harmony: list[Path] | None = None) -> dict:
     bf = librosa.time_to_frames(b, sr=SR, hop_length=HOP)
     chroma_b = librosa.util.sync(chroma, bf, aggregate=np.median)[:, 1:]  # column i = beat i to beat i+1
     chord_seq = chords(chroma_b)[: len(b)]
+    in_key = chords_in_key(chroma_b, key)[: len(b)]
 
     rms = librosa.feature.rms(y=y, hop_length=HOP)[0]
     df = librosa.time_to_frames(d, sr=SR, hop_length=HOP)
@@ -151,6 +172,7 @@ def analyze(path: Path, harmony: list[Path] | None = None) -> dict:
         "downbeats": [round(float(t), 3) for t in d],
         "key": key,
         "chords_per_beat": chord_seq,
+        "chords_in_key_per_beat": in_key,
         "chroma_per_beat": [[round(float(v), 3) for v in col] for col in chroma_b.T],
         "harmony_source": [p.name for p in harmony] if harmony else "full mix",
         "chord_changes": _changes(b, chord_seq),

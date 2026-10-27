@@ -52,3 +52,15 @@
 {"ts": "2026-10-26T23:50:22", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears phrase: watchtower-70s", "usd": 0.006543, "prompt_tokens": 291, "completion_tokens": 1454}
 {"ts": "2026-10-26T23:50:23", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears phrase: watchtower-70s", "usd": 0.005893, "prompt_tokens": 264, "completion_tokens": 1309}
 {"ts": "2026-10-26T23:51:42", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader song map: watchtower-70s", "usd": 0.167668, "prompt_tokens": 2912, "completion_tokens": 7801}
+{"ts": "2026-10-26T23:52:48", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: cast musician", "usd": 0.06748, "prompt_tokens": 1510, "completion_tokens": 3072}
+{"ts": "2026-10-26T23:53:27", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Danny (bass)", "usd": 0.208408, "prompt_tokens": 6122, "completion_tokens": 9196}
+{"ts": "2026-10-26T23:53:46", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Danny (bass)", "usd": 0.195852, "prompt_tokens": 13413, "completion_tokens": 7110}
+{"ts": "2026-10-26T23:54:41", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: cast musician", "usd": 0.0459, "prompt_tokens": 1510, "completion_tokens": 1993}
+{"ts": "2026-10-26T23:54:57", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Mara (bass)", "usd": 0.084156, "prompt_tokens": 6009, "completion_tokens": 3006}
+{"ts": "2026-10-26T23:55:35", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Mara (bass)", "usd": 0.193604, "prompt_tokens": 7691, "completion_tokens": 8142}
+{"ts": "2026-10-26T23:56:30", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Mara (bass)", "usd": 0.247564, "prompt_tokens": 13441, "completion_tokens": 9690}
+{"ts": "2026-10-26T23:58:10", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Mara (bass)", "usd": 0.395304, "prompt_tokens": 18826, "completion_tokens": 16000}
+{"ts": "2026-10-26T23:58:32", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: cast musician", "usd": 0.0347, "prompt_tokens": 1510, "completion_tokens": 1433}
+{"ts": "2026-10-26T23:59:06", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Danny (bass)", "usd": 0.128584, "prompt_tokens": 5986, "completion_tokens": 5232}
+{"ts": "2026-10-26T23:59:50", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Danny (bass)", "usd": 0.236736, "prompt_tokens": 8344, "completion_tokens": 10168}
+{"ts": "2026-10-27T00:00:17", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Danny (bass)", "usd": 0.211032, "prompt_tokens": 15123, "completion_tokens": 7527}

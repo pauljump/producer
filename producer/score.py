@@ -40,7 +40,7 @@ def chart(a: dict, song_map: dict | None = None, vocal_rms: list[float] | None =
         e = starts[n + 1] if n + 1 < len(starts) else len(beats)
         chroma = np.mean(a["chroma_per_beat"][s:e], axis=0) if e > s else np.zeros(12)
         top = [NOTE_NAMES[i] for i in np.argsort(chroma)[::-1][:4]]
-        per_beat = a["chords_per_beat"][s:e]
+        per_beat = a.get("chords_in_key_per_beat", a["chords_per_beat"])[s:e]
         t = beats[s]
         row = {"bar": n + 1, "beat": s, "beats_in_bar": e - s, "time": round(t, 2),
                "chords_by_beat": per_beat, "strongest_pitches": top,

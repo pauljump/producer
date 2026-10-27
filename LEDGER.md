@@ -6,7 +6,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 
 | Provider | Spent | Credit |
 |---|---:|---:|
-| meta | $0.5097 | $150 |
+| meta | $2.9384 | $150 |
 | baseten | $0.0203 | $100 |
 | modal | $0.0000 | $100 |
 
@@ -14,13 +14,19 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 
 | Day | Meta | Baseten | Modal |
 |---|---:|---:|---:|
-| 2026-10-26 | $0.5097 | $0.0203 | $0.0000 |
+| 2026-10-26 | $2.7274 | $0.0203 | $0.0000 |
+| 2026-10-27 | $0.2110 | $0.0000 | $0.0000 |
 
 ## By purpose
 
 | Provider | Model | Purpose | Calls | Spent |
 |---|---|---|---:|---:|
+| meta | muse-wonder-1.0 | musician take: Danny (bass) | 5 | $0.9806 |
+| meta | muse-wonder-1.0 | musician take: Mara (bass) | 4 | $0.9206 |
+| meta | muse-wonder-1.0 | bandleader song map: watchtower-70s | 2 | $0.2573 |
 | meta | muse-wonder-1.0 | bandleader song map: sketch-free | 1 | $0.1705 |
+| meta | muse-wonder-1.0 | bandleader: cast musician | 3 | $0.1481 |
+| meta | muse-spark-1.2 | ears phrase: watchtower-70s | 16 | $0.1221 |
 | meta | muse-wonder-1.0 | bandleader song map: holdon-90s | 1 | $0.1164 |
 | meta | muse-spark-1.2 | ears phrase: holdon-90s | 9 | $0.0608 |
 | meta | muse-wonder-1.0 | ears model comparison: holdon 90s | 1 | $0.0596 |

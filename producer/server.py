@@ -158,8 +158,8 @@ def invite(name: str, ask: str = Form(...)):
 async def say(name: str, mid: str, words: str = Form(""), voice: UploadFile | None = File(None)):
     if voice is not None:
         raw = await voice.read()
-        wav = subprocess.run(["ffmpeg", "-v", "error", "-i", "-", "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", "-f", "wav", "-"],
-                             input=raw, capture_output=True, check=True).stdout
+        from .steer import _convert
+        wav = _convert(raw, "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le")
         words = models.transcribe(wav, len(wav) / 32000)
     if not words.strip():
         raise HTTPException(400, "say something")

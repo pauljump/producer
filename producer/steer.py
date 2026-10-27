@@ -19,9 +19,18 @@ from .ears import parse_json
 SR = 22050
 
 
+def _convert(raw: bytes, *args: str) -> bytes:
+    """Voice memos (m4a) keep their index at the end, so ffmpeg needs a real file, not a pipe."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        src, out = Path(d) / "in", Path(d) / "out.wav"
+        src.write_bytes(raw)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), *args, str(out)], check=True)
+        return out.read_bytes()
+
+
 def load(raw: bytes) -> np.ndarray:
-    wav = subprocess.run(["ffmpeg", "-v", "error", "-i", "-", "-ac", "1", "-ar", str(SR), "-f", "wav", "-"],
-                         input=raw, capture_output=True, check=True).stdout
+    wav = _convert(raw, "-ac", "1", "-ar", str(SR))
     y, _ = librosa.load(__import__("io").BytesIO(wav), sr=SR, mono=True)
     return np.concatenate([np.zeros(int(0.25 * SR)), y])  # onsets at the very first frame are otherwise lost
 
@@ -91,8 +100,7 @@ JSON only: {{"what_it_is": "a melody / a riff / a rhythm / a groove ...",
 
 
 def hear_sketch(raw: bytes, kind: str, instrument: str) -> dict:
-    wav = subprocess.run(["ffmpeg", "-v", "error", "-i", "-", "-ac", "1", "-ar", "16000", "-f", "wav", "-"],
-                         input=raw, capture_output=True, check=True).stdout
+    wav = _convert(raw, "-ac", "1", "-ar", "16000")
     resp = models.chat("meta", models.EARS, [
         {"role": "system", "content": "You have native audio input; the attached audio is audible to you."},
         {"role": "user", "content": [{"type": "text", "text": FEEL.format(verb="hummed" if kind == "hum" else "beatboxed", instrument=instrument)},

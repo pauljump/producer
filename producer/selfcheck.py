@@ -86,9 +86,20 @@ class Meters:
         d = d[np.abs(d) < 0.2] * 1000
         if len(d) < 3:
             return {"note": "new part's onsets do not line up with any recording onsets", "matched": 0}
-        return {"median_offset_ms": round(float(np.median(d)), 1),
-                "spread_ms": round(float(np.percentile(d, 75) - np.percentile(d, 25)), 1),
-                "matched_onsets": int(len(d)), "part_onsets": int(len(new))}
+        out = {"median_offset_ms": round(float(np.median(d)), 1),
+               "spread_ms": round(float(np.percentile(d, 75) - np.percentile(d, 25)), 1),
+               "matched_onsets": int(len(d)), "part_onsets": int(len(new))}
+        # Baseline: how loosely the recording itself sits on its own beat grid (8th-note positions).
+        if len(self.beats) > 2:
+            b = np.asarray(self.beats)
+            grid = np.sort(np.concatenate([b, (b[:-1] + b[1:]) / 2]))
+            g = np.array([r - grid[np.argmin(np.abs(grid - r))] for r in ref]) * 1000
+            g = g[np.abs(g) < 200]
+            if len(g) > 3:
+                out["recording_own_spread_ms"] = round(float(np.percentile(g, 75) - np.percentile(g, 25)), 1)
+                out["note"] = ("the new part is placed on the recording's measured beats; a spread close to the "
+                               "recording's own spread is the live performance breathing, not the new part")
+        return out
 
     def measure_tuning(self):
         cp = librosa.feature.chroma_cqt(y=self.part, sr=SR)
@@ -120,15 +131,21 @@ def check(song, part, harmony, vocals, beats, instrument: str, start: float, end
           tries: int = 3) -> dict:
     """One passage. `part` is the rendered part alone at its mix level; `harmony`/`vocals` are stems."""
     meters = Meters(song, part, harmony, vocals, start, end, beats)
+    drums = instrument == "drums"
+    tools = [t for t in TOOLS if not (drums and t["function"]["name"] == "measure_tuning")]
+    prompt = ASK.format(start=start, end=end, instrument=instrument)
+    if drums:
+        prompt = prompt.replace('"tune": "in tune|clashes"', '"tune": "n/a"') + (
+            "\nDrums are unpitched: do not judge tuning. Judge time, room and level only.")
     mixed = song + part
     a, b = int(start * hands.SR), int(end * hands.SR)
     for _ in range(tries):
         msgs = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": [
-            {"type": "text", "text": ASK.format(start=start, end=end, instrument=instrument)}, _mp3(mixed[a:b])]}]
+            {"type": "text", "text": prompt}, _mp3(mixed[a:b])]}]
         measured = {}
         for _turn in range(5):
             resp = models.chat("baseten", models.SELF_CHECK, msgs, purpose=f"self-check {instrument} {label}".strip(),
-                               estimate_usd=0.02, max_tokens=6000, tools=TOOLS)
+                               estimate_usd=0.02, max_tokens=6000, tools=tools)
             m = resp.choices[0].message
             if not m.tool_calls:
                 break

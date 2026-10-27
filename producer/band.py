@@ -68,6 +68,35 @@ DRUM_MAP = {"kick": 36, "snare": 38, "rim": 37, "closed hat": 42, "open hat": 46
             "crash": 49, "low tom": 45, "mid tom": 47, "high tom": 50, "shaker": 70, "tambourine": 54}
 
 
+TRANSLATE = """You are the bandleader. The producer knows nothing about music, only what they like,
+and they just said this about {name}'s {instrument} take: "{words}"
+
+Translate their taste into a musical instruction a session player can act on. Read their words
+generously: "I don't believe it" usually means the part sounds generic or effortful, not that a
+note is wrong. "that, but less" means keep the idea and reduce. Be specific (density, register,
+rhythm, dynamics, where in the song), and keep what they did not complain about.
+
+SONG MAP: {song_map}
+THE TAKE THEY HEARD (notes): {take}
+WHAT THE PLAYER TOLD THEM: {said}
+
+JSON only:
+{{"heard_as": "what you think the producer means, in one sentence",
+ "instruction": "the direction to the player, musical and specific",
+ "where": "the whole song, or which sections/bars",
+ "keep": "what must not change",
+ "reply_to_producer": "one short plain sentence back to the producer (no theory)"}}"""
+
+
+def translate(words: str, musician: dict, take: dict, song_map: dict) -> dict:
+    """Taste in, musical instruction out (Muse Wonder as bandleader)."""
+    resp = models.chat("meta", models.WONDER, [{"role": "user", "content": TRANSLATE.format(
+        words=words, name=musician["name"], instrument=musician["instrument"], song_map=json.dumps(song_map),
+        take=json.dumps(take["written"]), said=take.get("to_producer", ""))}],
+        purpose="bandleader: translate taste", estimate_usd=0.15, max_tokens=8000)
+    return parse_json(models.text(resp))
+
+
 def cast(ask: str, song_map: dict) -> dict:
     resp = models.chat("meta", models.WONDER, [{"role": "user", "content": CAST.format(ask=ask, song_map=json.dumps(song_map))}],
                        purpose="bandleader: cast musician", estimate_usd=0.1, max_tokens=6000)
@@ -88,18 +117,21 @@ def _norm(notes: list[dict], drums: bool) -> list[dict]:
 
 
 def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audio_part: dict,
-         direction: str | None = None, previous: dict | None = None, max_turns: int = 6) -> dict:
-    """One take. Returns {'notes' (absolute beats), 'written', 'level_lu', 'to_producer', 'checks'}."""
+         direction: str | None = None, previous: dict | None = None, max_turns: int = 8,
+         engineer=None, revisions: int = 2) -> dict:
+    """One take. Returns {'notes' (absolute beats), 'written', 'level_lu', 'to_producer', 'checks',
+    'engineer'}. If `engineer(take) -> (ok, verdicts)` is given, a submitted take goes to the
+    self-check first; a failed check goes back to the musician to revise, up to `revisions` times."""
     drums = musician["instrument"] == "drums"
     system = PLAYER.format(drum_hint=GM_DRUMS if drums else "", **{k: musician.get(k, "") for k in
                            ("name", "instrument", "feel", "touch", "register", "signature_move", "influences")})
     brief = {"song_map": song_map, "chart": chart, "your_plan": musician.get("plan")}
     if previous:
         brief["your_last_take"] = previous["written"]
-        brief["producer_said"] = direction
+        brief["direction"] = direction
     msgs = [{"role": "system", "content": system},
             {"role": "user", "content": [{"type": "text", "text": json.dumps(brief)}, audio_part]}]
-    checks = []
+    checks, reviews = [], []
     for _ in range(max_turns):
         resp = models.chat("meta", models.WONDER, msgs, purpose=f"musician take: {musician['name']} ({musician['instrument']})",
                            estimate_usd=0.4, max_tokens=16000, tools=TOOLS)
@@ -113,8 +145,18 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
             written = _norm(args.get("notes", []), drums)
             notes = score.to_beats(analysis, written)
             if call.function.name == "submit_take":
-                return {"notes": notes, "written": written, "level_lu": float(args.get("level_lu", -6)),
-                        "to_producer": args.get("to_producer", ""), "checks": checks}
+                take = {"notes": notes, "written": written, "level_lu": float(args.get("level_lu", -6)),
+                        "to_producer": args.get("to_producer", ""), "checks": checks, "engineer": reviews}
+                if engineer is None:
+                    return take
+                ok, verdicts = engineer(take)
+                reviews.append(verdicts)
+                if ok or len(reviews) > revisions:
+                    return take
+                msgs.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(
+                    {"status": "sent back by the session engineer before the producer heard it",
+                     "verdicts": verdicts}, default=float)})
+                continue
             report = score.fit(analysis, notes, drums=drums)
             checks.append(report)
             msgs.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(report)})

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Audio and session data stay local: private recordings, never committed.
+audio/
+sessions/
+*.wav
+*.mp3
+*.aif
+*.aiff
+*.m4a
+*.flac
+# Keys live in ~/.secrets only.
+.env
+.env.*

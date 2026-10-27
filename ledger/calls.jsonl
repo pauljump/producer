@@ -1,0 +1,2 @@
+{"ts": "2026-10-26T23:31:35", "provider": "meta", "model": "muse-spark-1.2", "purpose": "key check", "usd": 4e-05, "prompt_tokens": 15, "completion_tokens": 5}
+{"ts": "2026-10-26T23:31:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "key check", "usd": 0.000275, "prompt_tokens": 152, "completion_tokens": 20}

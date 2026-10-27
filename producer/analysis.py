@@ -66,7 +66,8 @@ def chords(chroma_beats: np.ndarray, switch_cost: float = 2.5, sharp: float = 25
     names, T = _chord_templates()
     c = chroma_beats / (np.linalg.norm(chroma_beats, axis=0, keepdims=True) + 1e-9)
     like = T @ c  # (chords, beats) cosine similarity
-    like[-1] -= 0.08  # "no chord" only wins when nothing fits
+    like[-1] -= 1.0  # never "no chord"; quiet beats are handled by energy, not here
+    like[[i for i, nm in enumerate(names) if "sus" in nm]] -= 0.04  # guitar voicings fool sus templates
     logp = like * sharp
     n = len(names)
     trans = np.full((n, n), -switch_cost)
@@ -113,7 +114,14 @@ def sections(y: np.ndarray, downbeats: np.ndarray, k: int | None = None) -> list
             for i in range(len(bounds))]
 
 
-def analyze(path: Path) -> dict:
+def load_mix(paths: list[Path]) -> np.ndarray:
+    ys = [librosa.load(str(p), sr=SR, mono=True)[0] for p in paths]
+    n = min(len(y) for y in ys)
+    return sum(y[:n] for y in ys)
+
+
+def analyze(path: Path, harmony: list[Path] | None = None) -> dict:
+    """harmony: stems that carry the chords (e.g. separated guitar); falls back to the full mix."""
     y, _ = librosa.load(str(path), sr=SR, mono=True)
     duration = len(y) / SR
     b, d = beats(path)
@@ -121,7 +129,7 @@ def analyze(path: Path) -> dict:
     tempo = 60.0 / float(np.median(ibi)) if len(ibi) else 0.0
     beats_per_bar = int(round(np.median(np.diff(np.searchsorted(b, d))))) if len(d) > 2 else 4
 
-    harmonic = librosa.effects.harmonic(y)
+    harmonic = librosa.effects.harmonic(load_mix(harmony) if harmony else y)
     chroma = librosa.feature.chroma_cqt(y=harmonic, sr=SR, hop_length=HOP)
     key = estimate_key(chroma)
     bf = librosa.time_to_frames(b, sr=SR, hop_length=HOP)
@@ -143,6 +151,8 @@ def analyze(path: Path) -> dict:
         "downbeats": [round(float(t), 3) for t in d],
         "key": key,
         "chords_per_beat": chord_seq,
+        "chroma_per_beat": [[round(float(v), 3) for v in col] for col in chroma_b.T],
+        "harmony_source": [p.name for p in harmony] if harmony else "full mix",
         "chord_changes": _changes(b, chord_seq),
         "bar_energy_db": [round(float(x), 1) for x in bar_db],
         "sections": sections(y, d),
@@ -162,7 +172,8 @@ def _changes(b: np.ndarray, seq: list[str]) -> list[dict]:
 if __name__ == "__main__":
     src = Path(sys.argv[1])
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else src.with_suffix(".analysis.json")
-    a = analyze(src)
+    stems = [Path(p) for p in sys.argv[3:]] or None
+    a = analyze(src, stems)
     out.write_text(json.dumps(a, indent=1))
     print(json.dumps({k: a[k] for k in ("duration", "tempo_bpm", "tempo_stability", "beats_per_bar", "key")}))
     print("sections", [(s["label"], s["start"]) for s in a["sections"]])

@@ -69,8 +69,9 @@ def _mono(x: np.ndarray) -> np.ndarray:
 class Meters:
     """Measurements on rendered audio for one passage."""
 
-    def __init__(self, song, part, harmony, vocals, start, end, beats):
+    def __init__(self, song, part, harmony, vocals, start, end, beats, chords=None):
         a, b = int(start * hands.SR), int(end * hands.SR)
+        self.chords = [c for t, c in zip(beats, chords or []) if start <= t < end]
         self.song, self.part = _mono(song[a:b]), _mono(part[a:b])
         self.harmony = _mono(harmony[a:b]) if harmony is not None else self.song
         self.vocals = _mono(vocals[a:b]) if vocals is not None else None
@@ -110,11 +111,22 @@ class Meters:
         if frames is not None:
             cp, ch = librosa.util.sync(cp, frames), librosa.util.sync(ch, frames)
         loud = cp.max(axis=0) > 0.3
-        chn = ch / (ch.max(axis=0, keepdims=True) + 1e-9)
-        foreign = ((cp / (cp.sum(axis=0, keepdims=True) + 1e-9)) * (chn < 0.4)).sum(axis=0)
+        allowed = ch / (ch.max(axis=0, keepdims=True) + 1e-9) >= 0.4
+        if self.chords and frames is not None:
+            # A keys or bass part may play chord tones the guitar happens not to ring (a third
+            # over a power chord). Count the measured chord's tones as shared, not foreign.
+            from . import analysis
+            names, T = analysis._chord_templates()
+            for col in range(allowed.shape[1]):
+                c = self.chords[min(max(col - 1, 0), len(self.chords) - 1)]
+                if c in names:
+                    allowed[:, col] |= T[names.index(c)] > 0
+        foreign = ((cp / (cp.sum(axis=0, keepdims=True) + 1e-9)) * ~allowed).sum(axis=0)
         f = foreign[loud] if loud.any() else foreign
         return {"foreign_pitch_share_median": round(float(np.median(f)), 2),
-                "beats_over_half_foreign": int((f > 0.5).sum()), "beats_measured": int(len(f))}
+                "beats_over_half_foreign": int((f > 0.5).sum()), "beats_measured": int(len(f)),
+                "calibration": ("measured on this song: parts in key read 0.2 to 0.45 (overtones of sampled "
+                                "instruments always add some); a part a semitone out reads 0.55 to 0.7")}
 
     def measure_room(self):
         def band(y, lo=300, hi=3500):
@@ -128,9 +140,9 @@ class Meters:
 
 
 def check(song, part, harmony, vocals, beats, instrument: str, start: float, end: float, label: str = "",
-          tries: int = 3) -> dict:
+          tries: int = 3, chords: list[str] | None = None) -> dict:
     """One passage. `part` is the rendered part alone at its mix level; `harmony`/`vocals` are stems."""
-    meters = Meters(song, part, harmony, vocals, start, end, beats)
+    meters = Meters(song, part, harmony, vocals, start, end, beats, chords)
     drums = instrument == "drums"
     tools = [t for t in TOOLS if not (drums and t["function"]["name"] == "measure_tuning")]
     prompt = ASK.format(start=start, end=end, instrument=instrument)

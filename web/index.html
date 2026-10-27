@@ -47,7 +47,7 @@ section{margin-top:28px}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
 input[type=text]{flex:1;min-width:220px;background:#120f0d;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;font:16px Inter}
 input[type=text]:focus{outline:none;border-color:var(--warm)}
-.mic.rec{background:var(--bad);border-color:var(--bad);color:#fff}
+.mic.rec,.btn.rec{background:var(--bad);border-color:var(--bad);color:#fff}
 .busy{position:fixed;left:0;right:0;bottom:0;background:#0d0b09ee;border-top:1px solid var(--line);padding:14px 16px;display:none}
 .busy.show{display:block}
 .busy .in{max-width:1080px;margin:0 auto;display:flex;gap:12px;align-items:center}
@@ -104,6 +104,12 @@ input[type=text]:focus{outline:none;border-color:var(--warm)}
             <input type="text" id="words" placeholder="Say what you feel: too busy, I don't believe it, the chorus should feel like relief">
             <button class="btn mic" id="mic" title="Hold to talk">Hold to talk</button>
             <button class="btn" id="send">Play it again</button>
+          </div>
+          <div class="row">
+            <button class="btn" id="hum" title="Hold and hum the line you hear in your head">Hold to hum it</button>
+            <button class="btn" id="bbox" title="Hold and beatbox the groove">Hold to beatbox it</button>
+            <label class="btn">or send a voice memo<input type="file" id="memo" accept="audio/*" capture hidden></label>
+            <select id="memokind" class="btn"><option value="hum">it's a hum</option><option value="beatbox">it's a beatbox</option></select>
           </div>
           <div class="row">
             <button class="btn big keep" id="keep">Keep</button>
@@ -283,6 +289,26 @@ $('#mic').onpointerdown = async () => {
   rec.start(); $('#mic').classList.add('rec'); $('#mic').textContent = 'Listening…';
 };
 $('#mic').onpointerup = $('#mic').onpointerleave = () => { if (rec && rec.state === 'recording') { rec.stop(); $('#mic').classList.remove('rec'); $('#mic').textContent = 'Hold to talk'; } };
+
+function sendSketch(blob, kind){
+  const fd = new FormData(); fd.append('clip', blob, 'idea.webm'); fd.append('kind', kind); fd.append('words', $('#words').value.trim());
+  $('#words').value = '';
+  api(`/api/session/${name}/${sel}/sketch`, fd).then(refresh).catch(e => alertLine(e.message));
+}
+function holdToRecord(btn, kind, label){
+  let r, parts = [];
+  btn.onpointerdown = async () => {
+    if (!navigator.mediaDevices) { alertLine('The microphone needs the https page; send a voice memo instead.'); return; }
+    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+    r = new MediaRecorder(stream); parts = []; r.ondataavailable = e => parts.push(e.data);
+    r.onstop = () => { stream.getTracks().forEach(t => t.stop()); sendSketch(new Blob(parts), kind); };
+    r.start(); btn.classList.add('rec'); btn.textContent = 'Recording…';
+  };
+  btn.onpointerup = btn.onpointerleave = () => { if (r && r.state === 'recording') { r.stop(); btn.classList.remove('rec'); btn.textContent = label; } };
+}
+holdToRecord($('#hum'), 'hum', 'Hold to hum it');
+holdToRecord($('#bbox'), 'beatbox', 'Hold to beatbox it');
+$('#memo').onchange = e => e.target.files[0] && sendSketch(e.target.files[0], $('#memokind').value);
 
 if (name) { refresh(); setInterval(() => S && (S.status.busy || !S.ready) && refresh(), 2500); }
 else listSessions();

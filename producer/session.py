@@ -86,7 +86,8 @@ class Session:
             part = hands.at_level(self.song, self.render_notes(instrument, take["notes"]), take["level_lu"])
             with ThreadPoolExecutor(4) as pool:
                 verdicts = list(pool.map(lambda w: selfcheck.check(self.song, part, harmony, vocals, self.analysis["beats"],
-                                                                     instrument, w[0], w[1], label="take"), windows))
+                                                                     instrument, w[0], w[1], label="take",
+                                                                     chords=self.analysis.get("chords_in_key_per_beat")), windows))
             ok = all(v.get("pass") is not False for v in verdicts)
             return ok, verdicts
         return run
@@ -129,6 +130,23 @@ class Session:
         self.log("direct", musician=mid, words=words, instruction=instr)
         direction = f'{instr["instruction"]} Where: {instr["where"]}. Keep: {instr["keep"]}.'
         self._play(mid, direction=direction, previous=last, said=words, translation=instr)
+        return instr
+
+    def sketch(self, mid: str, raw: bytes, kind: str, words: str = "") -> dict:
+        """The producer hums a line or beatboxes a groove; the musician plays it in character."""
+        from . import steer
+        m = self.state["musicians"][mid]
+        sk = steer.sketch(raw, kind, self.analysis["tempo_bpm"], m["character"]["instrument"])
+        if not sk["measured"]:
+            raise RuntimeError("couldn't hear an idea in that; try again a little louder")
+        said = words or ("(hummed an idea)" if kind == "hum" else "(beatboxed a groove)")
+        last = m["takes"][-1]
+        instr = band.translate(said, m["character"], last, self.state["song_map"], sketch=sk)
+        self.log("sketch", musician=mid, kind=kind, sketch=sk, instruction=instr)
+        direction = f'{instr["instruction"]} Where: {instr["where"]}. Keep: {instr["keep"]}. The producer {said}: {json.dumps(sk["measured"])}'
+        self._play(mid, direction=direction, previous=last, said=said, translation=instr)
+        self.state["musicians"][mid]["takes"][-1]["sketch"] = sk
+        self.save()
         return instr
 
     def keep(self, mid: str):

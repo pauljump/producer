@@ -170,6 +170,18 @@ async def say(name: str, mid: str, words: str = Form(""), voice: UploadFile | No
     return {"heard": words}
 
 
+@app.post("/api/session/{name}/{mid}/sketch")
+async def sketch(name: str, mid: str, kind: str = Form("hum"), words: str = Form(""), clip: UploadFile = File(...)):
+    if kind not in ("hum", "beatbox"):
+        raise HTTPException(400, "hum or beatbox")
+    raw = await clip.read()
+
+    def run():
+        Session(name).sketch(mid, raw, kind, words)
+    _job(name, "They're learning your idea" if kind == "hum" else "They're learning your groove", run)
+    return {"ok": True}
+
+
 @app.post("/api/session/{name}/{mid}/keep")
 def keep(name: str, mid: str):
     Session(name).keep(mid)

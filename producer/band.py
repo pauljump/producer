@@ -88,12 +88,27 @@ JSON only:
  "reply_to_producer": "one short plain sentence back to the producer (no theory)"}}"""
 
 
-def translate(words: str, musician: dict, take: dict, song_map: dict) -> dict:
+SKETCH = """
+
+They also {verb} an idea into their phone. Pitch/onset tracking measured it as (beats from the
+start of their idea; notes are as hummed, in any octave and maybe a little off key):
+{measured}
+Listening to it, our ears say: {heard}
+Turn the sketch into the instruction: where in the song it belongs, transposed into the song's
+key and the player's register, simplified or developed in the player's character. The producer
+wants to hear their idea in the part, recognisably."""
+
+
+def translate(words: str, musician: dict, take: dict, song_map: dict, sketch: dict | None = None) -> dict:
     """Taste in, musical instruction out (Muse Wonder as bandleader)."""
-    resp = models.chat("meta", models.WONDER, [{"role": "user", "content": TRANSLATE.format(
+    prompt = TRANSLATE.format(
         words=words, name=musician["name"], instrument=musician["instrument"], song_map=json.dumps(song_map),
-        take=json.dumps(take["written"]), said=take.get("to_producer", ""))}],
-        purpose="bandleader: translate taste", estimate_usd=0.15, max_tokens=8000)
+        take=json.dumps(take["written"]), said=take.get("to_producer", ""))
+    if sketch:
+        prompt += SKETCH.format(verb="hummed" if sketch["kind"] == "hum" else "beatboxed",
+                                measured=json.dumps(sketch["measured"]), heard=json.dumps(sketch["heard"]))
+    resp = models.chat("meta", models.WONDER, [{"role": "user", "content": prompt}],
+        purpose="bandleader: translate taste", estimate_usd=0.3, max_tokens=24000)
     return parse_json(models.text(resp))
 
 
@@ -136,7 +151,7 @@ def _norm(notes: list[dict], drums: bool) -> list[dict]:
 
 
 def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audio_part: dict,
-         direction: str | None = None, previous: dict | None = None, max_turns: int = 8,
+         direction: str | None = None, previous: dict | None = None, max_turns: int = 10,
          engineer=None, revisions: int = 2) -> dict:
     """One take. Returns {'notes' (absolute beats), 'written', 'level_lu', 'to_producer', 'checks',
     'engineer'}. If `engineer(take) -> (ok, verdicts)` is given, a submitted take goes to the
@@ -150,8 +165,10 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
         brief["direction"] = direction
     msgs = [{"role": "system", "content": system},
             {"role": "user", "content": [{"type": "text", "text": json.dumps(brief)}, audio_part]}]
-    checks, reviews = [], []
-    for _ in range(max_turns):
+    checks, reviews, last_take = [], [], None
+    for turn in range(max_turns):
+        if turn == max_turns - 2:
+            msgs.append({"role": "user", "content": "Time's nearly up in the studio: call submit_take with your best take now."})
         resp = models.chat("meta", models.WONDER, msgs, purpose=f"musician take: {musician['name']} ({musician['instrument']})",
                            estimate_usd=0.4, max_tokens=16000, tools=TOOLS)
         m = resp.choices[0].message
@@ -168,6 +185,7 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
                         "to_producer": args.get("to_producer", ""), "checks": checks, "engineer": reviews}
                 if engineer is None:
                     return take
+                last_take = take
                 ok, verdicts = engineer(take)
                 reviews.append(verdicts)
                 if ok or len(reviews) > revisions:
@@ -179,4 +197,6 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
             report = score.fit(analysis, notes, drums=drums)
             checks.append(report)
             msgs.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(report)})
+    if last_take:  # out of studio time: the producer hears the last take, with the engineer's notes
+        return last_take
     raise RuntimeError("musician never submitted a take")

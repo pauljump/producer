@@ -403,3 +403,75 @@
 {"ts": "2026-10-27T07:17:53", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-0", "usd": 0.01}
 {"ts": "2026-10-27T07:18:04", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-1", "usd": 0.01}
 {"ts": "2026-10-27T07:18:16", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: original-2", "usd": 0.01}
+{"ts": "2026-10-27T18:43:13", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer hum sketch", "usd": 0.005635, "prompt_tokens": 187, "completion_tokens": 1271}
+{"ts": "2026-10-27T18:44:24", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: translate taste", "usd": 0.202148, "prompt_tokens": 10537, "completion_tokens": 8000}
+{"ts": "2026-10-27T18:44:42", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer hum sketch", "usd": 0.007829, "prompt_tokens": 187, "completion_tokens": 1787}
+{"ts": "2026-10-27T18:45:42", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: translate taste", "usd": 0.180216, "prompt_tokens": 10559, "completion_tokens": 6899}
+{"ts": "2026-10-27T18:46:28", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.286556, "prompt_tokens": 15024, "completion_tokens": 11323}
+{"ts": "2026-10-27T18:46:56", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.269448, "prompt_tokens": 23567, "completion_tokens": 8759}
+{"ts": "2026-10-27T18:47:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002412, "prompt_tokens": 1154, "completion_tokens": 228}
+{"ts": "2026-10-27T18:47:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002276, "prompt_tokens": 1154, "completion_tokens": 196}
+{"ts": "2026-10-27T18:47:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.00245, "prompt_tokens": 1154, "completion_tokens": 237}
+{"ts": "2026-10-27T18:47:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002386, "prompt_tokens": 1154, "completion_tokens": 222}
+{"ts": "2026-10-27T18:47:11", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.005284, "prompt_tokens": 1565, "completion_tokens": 783}
+{"ts": "2026-10-27T18:47:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.00524, "prompt_tokens": 1550, "completion_tokens": 777}
+{"ts": "2026-10-27T18:47:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.006596, "prompt_tokens": 1530, "completion_tokens": 1102}
+{"ts": "2026-10-27T18:47:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.007651, "prompt_tokens": 1551, "completion_tokens": 1344}
+{"ts": "2026-10-27T18:47:16", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002205, "prompt_tokens": 1091, "completion_tokens": 198}
+{"ts": "2026-10-27T18:47:26", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.009648, "prompt_tokens": 1466, "completion_tokens": 1839}
+{"ts": "2026-10-27T18:48:14", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.347588, "prompt_tokens": 33257, "completion_tokens": 10728}
+{"ts": "2026-10-27T18:48:55", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.368356, "prompt_tokens": 41819, "completion_tokens": 10054}
+{"ts": "2026-10-27T18:49:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002224, "prompt_tokens": 1154, "completion_tokens": 184}
+{"ts": "2026-10-27T18:49:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002271, "prompt_tokens": 1154, "completion_tokens": 195}
+{"ts": "2026-10-27T18:49:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002518, "prompt_tokens": 1154, "completion_tokens": 253}
+{"ts": "2026-10-27T18:49:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002632, "prompt_tokens": 1154, "completion_tokens": 280}
+{"ts": "2026-10-27T18:49:10", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.006401, "prompt_tokens": 1527, "completion_tokens": 1057}
+{"ts": "2026-10-27T18:49:11", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.006706, "prompt_tokens": 1581, "completion_tokens": 1113}
+{"ts": "2026-10-27T18:49:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.007603, "prompt_tokens": 1601, "completion_tokens": 1318}
+{"ts": "2026-10-27T18:49:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.007848, "prompt_tokens": 1505, "completion_tokens": 1404}
+{"ts": "2026-10-27T18:49:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002312, "prompt_tokens": 1091, "completion_tokens": 223}
+{"ts": "2026-10-27T18:49:24", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.00775, "prompt_tokens": 1491, "completion_tokens": 1385}
+{"ts": "2026-10-27T18:50:26", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.39088, "prompt_tokens": 51565, "completion_tokens": 9231}
+{"ts": "2026-10-27T18:51:05", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.370948, "prompt_tokens": 57332, "completion_tokens": 7081}
+{"ts": "2026-10-27T18:51:43", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.405128, "prompt_tokens": 62092, "completion_tokens": 7838}
+{"ts": "2026-10-27T18:52:23", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.417236, "prompt_tokens": 68514, "completion_tokens": 7159}
+{"ts": "2026-10-27T18:53:49", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer hum sketch", "usd": 0.005368, "prompt_tokens": 187, "completion_tokens": 1208}
+{"ts": "2026-10-27T18:54:47", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: translate taste", "usd": 0.16786, "prompt_tokens": 10560, "completion_tokens": 6281}
+{"ts": "2026-10-27T18:55:21", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.27298, "prompt_tokens": 15065, "completion_tokens": 10636}
+{"ts": "2026-10-27T18:55:51", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Eddie (keys)", "usd": 0.270116, "prompt_tokens": 23599, "completion_tokens": 8786}
+{"ts": "2026-10-27T18:55:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.00242, "prompt_tokens": 1154, "completion_tokens": 230}
+{"ts": "2026-10-27T18:55:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002242, "prompt_tokens": 1154, "completion_tokens": 188}
+{"ts": "2026-10-27T18:55:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002573, "prompt_tokens": 1154, "completion_tokens": 266}
+{"ts": "2026-10-27T18:55:57", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002564, "prompt_tokens": 1154, "completion_tokens": 264}
+{"ts": "2026-10-27T18:56:04", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.004454, "prompt_tokens": 1571, "completion_tokens": 586}
+{"ts": "2026-10-27T18:56:05", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.005762, "prompt_tokens": 1614, "completion_tokens": 881}
+{"ts": "2026-10-27T18:56:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.005992, "prompt_tokens": 1635, "completion_tokens": 929}
+{"ts": "2026-10-27T18:56:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.002392, "prompt_tokens": 1091, "completion_tokens": 242}
+{"ts": "2026-10-27T18:56:18", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.014936, "prompt_tokens": 1558, "completion_tokens": 3056}
+{"ts": "2026-10-27T18:56:21", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check keys take", "usd": 0.023946, "prompt_tokens": 1643, "completion_tokens": 5151}
+{"ts": "2026-10-27T18:56:40", "provider": "meta", "model": "muse-spark-1.2", "purpose": "ears: producer beatbox sketch", "usd": 0.005422, "prompt_tokens": 159, "completion_tokens": 1229}
+{"ts": "2026-10-27T18:57:09", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: translate taste", "usd": 0.07754, "prompt_tokens": 4385, "completion_tokens": 3000}
+{"ts": "2026-10-27T18:57:43", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Marty (drums)", "usd": 0.166516, "prompt_tokens": 8914, "completion_tokens": 6543}
+{"ts": "2026-10-27T18:58:06", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Marty (drums)", "usd": 0.147036, "prompt_tokens": 12319, "completion_tokens": 4888}
+{"ts": "2026-10-27T18:58:11", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.001846, "prompt_tokens": 1106, "completion_tokens": 109}
+{"ts": "2026-10-27T18:58:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.002011, "prompt_tokens": 1106, "completion_tokens": 148}
+{"ts": "2026-10-27T18:58:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.002224, "prompt_tokens": 1106, "completion_tokens": 198}
+{"ts": "2026-10-27T18:58:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.002126, "prompt_tokens": 1106, "completion_tokens": 175}
+{"ts": "2026-10-27T18:58:18", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.003833, "prompt_tokens": 1404, "completion_tokens": 489}
+{"ts": "2026-10-27T18:58:19", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.006301, "prompt_tokens": 1423, "completion_tokens": 1064}
+{"ts": "2026-10-27T18:58:21", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.009199, "prompt_tokens": 1341, "completion_tokens": 1770}
+{"ts": "2026-10-27T18:58:22", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.001979, "prompt_tokens": 1043, "completion_tokens": 159}
+{"ts": "2026-10-27T18:58:23", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.009236, "prompt_tokens": 1374, "completion_tokens": 1769}
+{"ts": "2026-10-27T18:58:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.004564, "prompt_tokens": 1329, "completion_tokens": 683}
+{"ts": "2026-10-27T18:59:09", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Marty (drums)", "usd": 0.200692, "prompt_tokens": 17158, "completion_tokens": 6603}
+{"ts": "2026-10-27T18:59:50", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Marty (drums)", "usd": 0.21184, "prompt_tokens": 20580, "completion_tokens": 6476}
+{"ts": "2026-10-27T18:59:55", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.002432, "prompt_tokens": 1106, "completion_tokens": 247}
+{"ts": "2026-10-27T18:59:56", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.00202, "prompt_tokens": 1106, "completion_tokens": 150}
+{"ts": "2026-10-27T18:59:56", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.001914, "prompt_tokens": 1106, "completion_tokens": 125}
+{"ts": "2026-10-27T18:59:56", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.003444, "prompt_tokens": 1106, "completion_tokens": 485}
+{"ts": "2026-10-27T19:00:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.004274, "prompt_tokens": 1362, "completion_tokens": 605}
+{"ts": "2026-10-27T19:00:02", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.004172, "prompt_tokens": 1379, "completion_tokens": 576}
+{"ts": "2026-10-27T19:00:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.005896, "prompt_tokens": 1718, "completion_tokens": 882}
+{"ts": "2026-10-27T19:00:03", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.006701, "prompt_tokens": 1478, "completion_tokens": 1142}
+{"ts": "2026-10-27T19:00:04", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.001945, "prompt_tokens": 1043, "completion_tokens": 151}
+{"ts": "2026-10-27T19:00:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check drums take", "usd": 0.00858, "prompt_tokens": 1319, "completion_tokens": 1631}

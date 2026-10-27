@@ -49,6 +49,7 @@ Keys are read from `~/.secrets/meta-hackathon.env` (never from this repo):
 
 ```bash
 .venv/bin/python -m producer.analysis song.wav     # measured truth -> song.analysis.json
+.venv/bin/uvicorn producer.server:app --port 7731   # the producer's page
 ```
 
 ## Spend
@@ -64,6 +65,10 @@ Meta, or $95 on Baseten (below the $150 and $100 credits), and logs each call to
 | Oct 26 night / Oct 27 | Repo, key loading, cost ledger with hard stops, Meta + Baseten clients, measured analysis (beats, key, chords, sections, bar energy) | `producer/keys.py`, `producer/ledger.py`, `producer/models.py`, `producer/analysis.py`, `tools/ledger_report.py` |
 | Oct 27 | Stage 1 listening test; ears = Spark 1.2 phrase-by-phrase + Wonder song map with stem evidence | `producer/ears.py`, `docs/LISTENING-TEST.md` |
 | Oct 27 | Hands: beat-grid renderer (parts follow a drifting live tempo) and loudness-relative mix; chart and measured fit; Wonder casts a musician and the musician (Wonder, tool calling `check_fit` / `submit_take`) writes the first bass part | `producer/hands.py`, `producer/score.py`, `producer/band.py`, `tools/take.py` |
+| Oct 27 | Self-check: Spark Open (Baseten) as session engineer, with measuring tools; planted-error tests by ear vs with meters | `producer/selfcheck.py`, `tools/selfcheck_test.py`, `tools/pairwise_test.py`, `docs/SELF-CHECK-TEST.md` |
+| Oct 27 | Session loop: invite, say what you feel (Wonder translates taste into instruction), engineer sends takes back, keep / send back; drummer | `producer/session.py`, `tools/session.py` |
+| Oct 27 | Web app: upload, band stage, Muse Image musician cards, characters for the original performers, typed or spoken direction (Muse Voice Transcribe), synced solo / mute | `producer/server.py`, `web/index.html` |
+| Oct 27 | SAM Audio separation on Modal (written, awaiting first run) | `modal_app/separate.py` |
 
 Prior exploration (a separate, earlier Slopify app) is not part of this entry and none of its
 code is used here.

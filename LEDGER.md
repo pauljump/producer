@@ -6,8 +6,8 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 
 | Provider | Spent | Credit |
 |---|---:|---:|
-| meta | $8.8263 | $150 |
-| baseten | $1.3833 | $100 |
+| meta | $11.2936 | $150 |
+| baseten | $1.5790 | $100 |
 | modal | $0.0000 | $100 |
 
 ## By day
@@ -15,7 +15,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | Day | Meta | Baseten | Modal |
 |---|---:|---:|---:|
 | 2026-10-26 | $2.7274 | $0.0203 | $0.0000 |
-| 2026-10-27 | $6.0989 | $1.3630 | $0.0000 |
+| 2026-10-27 | $8.5662 | $1.5586 | $0.0000 |
 
 ## By purpose
 
@@ -23,13 +23,16 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 |---|---|---|---:|---:|
 | meta | muse-wonder-1.0 | musician take: Maggie (bass) | 9 | $2.6380 |
 | meta | muse-wonder-1.0 | musician take: Marty (drums) | 10 | $2.2205 |
+| meta | muse-wonder-1.0 | musician take: Eddie (keys) | 6 | $2.1230 |
 | meta | muse-wonder-1.0 | musician take: Danny (bass) | 5 | $0.9806 |
 | meta | muse-wonder-1.0 | musician take: Mara (bass) | 4 | $0.9206 |
 | baseten | meta-models/muse-spark-open-1026 | self-check drums take | 50 | $0.3453 |
+| meta | muse-wonder-1.0 | bandleader: cast musician | 6 | $0.3076 |
 | meta | muse-wonder-1.0 | bandleader song map: watchtower-70s | 2 | $0.2573 |
-| meta | muse-wonder-1.0 | bandleader: cast musician | 5 | $0.2398 |
+| baseten | meta-models/muse-spark-open-1026 | self-check keys take | 30 | $0.1956 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass take | 40 | $0.1949 |
 | meta | muse-wonder-1.0 | self-check pairwise test: random timing (wonder) | 6 | $0.1828 |
+| meta | muse-wonder-1.0 | bandleader: characters for the original performers | 2 | $0.1763 |
 | meta | muse-wonder-1.0 | bandleader song map: sketch-free | 1 | $0.1705 |
 | meta | muse-wonder-1.0 | self-check pairwise test: wrong key (+1) (wonder) | 6 | $0.1605 |
 | meta | muse-wonder-1.0 | bandleader: translate taste | 2 | $0.1493 |
@@ -53,10 +56,17 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-spark-1.2 | self-check pairwise test: random timing (spark-1.2) | 6 | $0.0359 |
 | meta | muse-spark-1.2 | self-check pairwise test: wrong key (+1) (spark-1.2) | 6 | $0.0326 |
 | baseten | meta-models/muse-spark-open-1026 | self-check probe: prompt shape | 4 | $0.0205 |
+| meta | muse-image-1.0 | musician card: original-0 | 2 | $0.0200 |
+| meta | muse-image-1.0 | musician card: original-1 | 2 | $0.0200 |
+| meta | muse-image-1.0 | musician card: original-2 | 2 | $0.0200 |
 | meta | muse-spark-1.2 | ears reconcile: sketch-0325 | 1 | $0.0170 |
 | baseten | meta-models/muse-spark-open-1026 | self-check probe: audio encoding | 3 | $0.0141 |
 | baseten | meta-models/muse-spark-open-1026 | self-check probe: does spark open hear music | 3 | $0.0140 |
 | meta | muse-spark-1.2 | ears debug: s30.wav | 3 | $0.0130 |
+| meta | muse-image-1.0 | image test | 1 | $0.0100 |
+| meta | muse-image-1.0 | musician card: bass-maggie | 1 | $0.0100 |
+| meta | muse-image-1.0 | musician card: drums-marty | 1 | $0.0100 |
+| meta | muse-image-1.0 | musician card: keys-eddie | 1 | $0.0100 |
 | meta | muse-spark-1.2 | ears debug: h30.wav | 1 | $0.0077 |
 | meta | muse-spark-1.2 | ears blind: sketch-0325 | 1 | $0.0065 |
 | baseten | meta-models/muse-spark-open-1026 | ears model comparison: holdon 90s | 1 | $0.0060 |
@@ -65,4 +75,5 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-spark-1.2 | ears debug: audio ingestion responses | 1 | $0.0019 |
 | meta | muse-spark-1.2 | ears debug: audio ingestion chat | 1 | $0.0017 |
 | baseten | meta-models/muse-spark-open-1026 | key check | 1 | $0.0003 |
+| meta | muse-voice-transcribe-1.0 | voice transcribe test | 1 | $0.0001 |
 | meta | muse-spark-1.2 | key check | 1 | $0.0000 |

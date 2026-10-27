@@ -106,26 +106,57 @@ def measured_summary(a: dict) -> dict:
             "bar_energy_db": a["bar_energy_db"], "downbeats_s": a["downbeats"]}
 
 
-def song_map(src: Path, analysis: dict, notes: list[dict]) -> dict:
+def stem_levels(stems: Path | None) -> dict:
+    """Loudness of each separated stem relative to the loudest one, in dB. Silent stems mean the
+    instrument is not on the recording (whatever the song usually has)."""
+    if not stems or not stems.exists():
+        return {}
+    import numpy as np
+    import soundfile as sf
+    rms = {}
+    for f in sorted(stems.glob("*.wav")):
+        y, _ = sf.read(str(f))
+        rms[f.stem] = float(np.sqrt(np.mean(np.square(y))) + 1e-9)
+    top = max(rms.values())
+    out = {k: round(float(20 * np.log10(v / top)), 1) for k, v in rms.items()}
+    drums = stems / "drums.wav"
+    if drums.exists():
+        y, sr = sf.read(str(drums))
+        y = y.mean(axis=1) if y.ndim > 1 else y
+        spec = np.abs(np.fft.rfft(y)) ** 2
+        f = np.fft.rfftfreq(len(y), 1 / sr)
+        out["drums_kick_band_share"] = round(float(spec[(f > 30) & (f < 150)].sum() / spec.sum()), 3)
+        out["drums_note"] = ("a real kit puts roughly 0.15 or more of its energy in the kick band; far less "
+                             "means hand percussion, claps, crowd or guitar string noise")
+    return out
+
+
+def song_map(src: Path, analysis: dict, notes: list[dict], stems: Path | None = None) -> dict:
     whole = cut(src, 0, analysis["duration"])
+    measured = measured_summary(analysis)
+    levels = stem_levels(stems)
+    if levels:
+        measured["separated_stem_levels_db"] = levels
+        measured["stem_note"] = ("Stems below about -25 dB are separation bleed, not a real instrument. "
+                                 "Trust these over what the song usually sounds like.")
     resp = models.chat("meta", models.WONDER, [
         {"role": "system", "content": SYSTEM},
         {"role": "user", "content": [
-            {"type": "text", "text": SONG_MAP.format(phrases=json.dumps(notes), measured=json.dumps(measured_summary(analysis)))},
+            {"type": "text", "text": SONG_MAP.format(phrases=json.dumps(notes), measured=json.dumps(measured))},
             _audio(whole)]}],
         purpose=f"bandleader song map: {src.stem}", estimate_usd=0.25, max_tokens=12000)
     return parse_json(models.text(resp))
 
 
-def listen(src: Path, analysis: dict) -> dict:
+def listen(src: Path, analysis: dict, stems: Path | None = None) -> dict:
     with ThreadPoolExecutor(6) as pool:
         notes = list(pool.map(lambda p: hear_phrase(src, *p), phrases(analysis)))
-    return {"phrases": notes, "song_map": song_map(src, analysis, notes)}
+    return {"phrases": notes, "song_map": song_map(src, analysis, notes, stems)}
 
 
 if __name__ == "__main__":
     wav = Path(sys.argv[1])
     analysis = json.loads(wav.with_suffix(".analysis.json").read_text())
-    result = listen(wav, analysis)
+    result = listen(wav, analysis, Path(sys.argv[2]) if len(sys.argv) > 2 else None)
     wav.with_suffix(".ears.json").write_text(json.dumps(result, indent=1))
     print(json.dumps(result["song_map"], indent=1))

@@ -69,6 +69,9 @@ Meta, or $95 on Baseten (below the $150 and $100 credits), and logs each call to
 | Oct 27 | Session loop: invite, say what you feel (Wonder translates taste into instruction), engineer sends takes back, keep / send back; drummer | `producer/session.py`, `tools/session.py` |
 | Oct 27 | Web app: upload, band stage, Muse Image musician cards, characters for the original performers, typed or spoken direction (Muse Voice Transcribe), synced solo / mute | `producer/server.py`, `web/index.html` |
 | Oct 27 | SAM Audio separation on Modal (written, awaiting first run) | `modal_app/separate.py` |
+| Oct 27 | Hum / beatbox steering: pYIN + onset tracking, Spark 1.2 hears the feel, Wonder places the idea, the musician plays it in character | `producer/steer.py` |
+| Oct 27 | Musicians research their influences (Wonder + Meta `web_search`, cited); Finish the song: final mix + Wonder-briefed Muse Image cover | `producer/models.py` (`research`), `producer/band.py`, `producer/session.py` |
+| Oct 27 | Bandleader agent: Wonder hires, briefs musician sub-agents in parallel, and reports back through its own tools | `producer/bandleader.py` |
 
 Prior exploration (a separate, earlier Slopify app) is not part of this entry and none of its
 code is used here.

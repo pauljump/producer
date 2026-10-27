@@ -132,6 +132,18 @@ def cast_originals(song_map: dict) -> list[dict]:
     return parse_json(models.text(resp)).get("originals", [])
 
 
+def research(musician: dict, song_map: dict) -> dict:
+    """Before the session the musician looks up how their influences really play music like this,
+    with live web search (Muse Wonder + Meta's web_search tool). Facts, with sources."""
+    return models.research(
+        f"You are {musician['name']}, a session {musician['instrument']} player about to play on "
+        f"a recording of '{song_map.get('title_guess', 'a song')}' ({song_map.get('feel', '')}). Your influences: "
+        f"{', '.join(musician.get('influences', []))}. Search for how those players actually approached "
+        f"{musician['instrument']} on songs like this (and on this song, if they played it). Correct any wrong "
+        "assumption in the brief, such as who actually played on a famous recording. Then, in 3 short bullets, say what "
+        "you will borrow for this session. Cite sources.", purpose=f"musician research: {musician['name']}")
+
+
 def cast(ask: str, song_map: dict) -> dict:
     resp = models.chat("meta", models.WONDER, [{"role": "user", "content": CAST.format(ask=ask, song_map=json.dumps(song_map))}],
                        purpose="bandleader: cast musician", estimate_usd=0.1, max_tokens=6000)
@@ -161,6 +173,8 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
     system = PLAYER.format(drum_hint=GM_DRUMS if drums else "", **{k: musician.get(k, "") for k in
                            ("name", "instrument", "feel", "touch", "register", "signature_move", "influences")})
     brief = {"song_map": song_map, "chart": chart, "your_plan": musician.get("plan")}
+    if musician.get("research"):
+        brief["what_you_looked_up"] = musician["research"]["text"]
     if previous:
         brief["your_last_take"] = previous["written"]
         brief["direction"] = direction

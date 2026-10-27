@@ -100,6 +100,7 @@ input[type=text]:focus{outline:none;border-color:var(--warm)}
         <div>
           <div class="says" id="desksays"></div>
           <div class="said" id="desksaid"></div>
+          <details class="said" id="research" hidden><summary>What they looked up before playing</summary><div id="researchtext" style="white-space:pre-wrap;margin-top:6px"></div><div id="researchsrc"></div></details>
           <div class="row">
             <input type="text" id="words" placeholder="Say what you feel: too busy, I don't believe it, the chorus should feel like relief">
             <button class="btn mic" id="mic" title="Hold to talk">Hold to talk</button>
@@ -116,6 +117,16 @@ input[type=text]:focus{outline:none;border-color:var(--warm)}
             <button class="btn big back" id="back">Send it back</button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="finishwrap">
+      <div class="label">The record</div>
+      <div class="row" style="margin-top:0;align-items:flex-start">
+        <img id="album" alt="Album cover" style="width:220px;height:220px;border-radius:14px;object-fit:cover;display:none">
+        <div><button class="btn big" id="finish">Finish the song</button>
+        <div class="said" id="finalnote">Mixes everyone you kept and paints the cover.</div>
+        <audio id="final" controls style="display:none;margin-top:10px;width:280px"></audio></div>
       </div>
     </section>
 
@@ -180,7 +191,7 @@ async function refresh(){
   $('#title').textContent = sm.title_guess || name;
   $('#sub').textContent = sm.the_song_is_about || '';
   $('#facts').innerHTML = [sm.key, sm.tempo_bpm && Math.round(sm.tempo_bpm) + ' BPM'].filter(Boolean).map(x => `<span class="chip">${x}</span>`).join('');
-  drawStage(); drawTimeline(); drawDesk(); await loadAudio();
+  drawStage(); drawTimeline(); drawDesk(); drawRecord(); await loadAudio();
 }
 function drawStage(){
   const st = $('#stage'); st.innerHTML = '';
@@ -218,7 +229,16 @@ function drawDesk(){
   $('#desksaid').textContent = t && t.producer_said ? `You said: "${t.producer_said}"` + (t.engineer_rounds > 1 ? ` · the engineer sent ${t.engineer_rounds - 1} take${t.engineer_rounds > 2 ? 's' : ''} back before you heard it` : '') : (t && t.engineer_rounds > 1 ? `The engineer sent ${t.engineer_rounds - 1} take${t.engineer_rounds > 2 ? 's' : ''} back before you heard it.` : '');
   const kept = m.kept != null && t === m.takes[m.kept];
   $('#keep').disabled = !t || kept; $('#back').disabled = !t;
+  const r = c.research || {};
+  $('#research').hidden = !r.text; $('#researchtext').textContent = r.text || '';
+  $('#researchsrc').innerHTML = (r.sources || []).map(u => `<a class="chip" target="_blank" rel="noopener" href="${u}">${new URL(u).hostname}</a>`).join('');
 }
+
+function drawRecord(){
+  if (S.album) { $('#album').src = S.album; $('#album').style.display = 'block'; }
+  if (S.final) { const a = $('#final'); if (!a.src.endsWith(S.final)) a.src = S.final; a.style.display = 'block'; $('#finalnote').textContent = 'The finished song.'; }
+}
+$('#finish').onclick = () => act(`/api/session/${name}/finish`);
 
 // ---------- audio ----------
 async function buffer(url){

@@ -490,3 +490,6 @@
 {"ts": "2026-10-27T19:05:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.009019, "prompt_tokens": 1751, "completion_tokens": 1607}
 {"ts": "2026-10-27T19:05:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002278, "prompt_tokens": 1091, "completion_tokens": 215}
 {"ts": "2026-10-27T19:05:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005464, "prompt_tokens": 1529, "completion_tokens": 836}
+{"ts": "2026-10-27T19:34:04", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "web search grounding test", "usd": 0.119208, "prompt_tokens": 22037, "completion_tokens": 1178}
+{"ts": "2026-10-27T19:34:32", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: album art brief", "usd": 0.020952, "prompt_tokens": 1493, "completion_tokens": 749}
+{"ts": "2026-10-27T19:34:42", "provider": "meta", "model": "muse-image-1.0", "purpose": "album art", "usd": 0.01}

@@ -117,6 +117,10 @@ class Session:
     # ---------- the producer's vocabulary ----------
     def invite(self, ask: str) -> str:
         character = band.cast(ask, self.state["song_map"])
+        try:
+            character["research"] = band.research(character, self.state["song_map"])
+        except Exception as e:  # research is a bonus; the session goes on without it
+            character["research"] = {"text": "", "sources": [], "error": str(e)[:200]}
         mid = f'{character["instrument"].replace(" ", "-")}-{character["name"].lower()}'
         self.state["musicians"][mid] = {"character": character, "takes": [], "kept": None, "asked": ask}
         self.log("invite", musician=mid, ask=ask)
@@ -172,6 +176,25 @@ class Session:
         take["audio"] = self.write_take_audio(mid, len(m["takes"]) - 1, take)
         self.log("take", musician=mid, take=len(m["takes"]) - 1, engineer_rounds=len(take["engineer"]))
         self.save()
+
+    def album_art(self) -> Path:
+        """The bandleader writes the art brief from what it heard and who played; Muse Image paints it."""
+        from . import models
+        band_list = [f'{m["character"]["name"]} ({m["character"]["instrument"]})' for m in self.state["musicians"].values()
+                     if m.get("kept") is not None]
+        people = [f'{o["name"]} ({o["role"]})' for o in self.state.get("originals", [])]
+        resp = models.chat("meta", models.WONDER, [{"role": "user", "content":
+            "Write one image prompt (under 80 words) for the album cover of this finished session. Make it about the "
+            "song's world, not about instruments. No text, no letters, no logos, no real people's likeness. "
+            f"Song map: {json.dumps(self.state['song_map'])}. On the record: {people + band_list}. Reply with the prompt only."}],
+            purpose="bandleader: album art brief", estimate_usd=0.1, max_tokens=8000, reasoning_effort="low")
+        brief = models.text(resp).strip()
+        out = self.dir / "cards" / "album.png"
+        out.parent.mkdir(exist_ok=True)
+        out.write_bytes(models.image(brief, purpose="album art", size="1024x1024"))
+        self.state["album"] = {"prompt": brief, "path": str(out)}
+        self.save()
+        return out
 
     def final_mix(self, path: Path, muted: tuple = ()) -> Path:
         hands.save(path, hands.mix(self.song + self.kept_mix(muted=muted), []))

@@ -74,3 +74,27 @@ def image(prompt: str, purpose: str, size: str = "1024x1024") -> bytes:
                                            response_format="b64_json", extra_body={"output_format": "png"})
     ledger.record("meta", "muse-image-1.0", purpose, ledger.IMAGE_USD)
     return base64.b64decode(resp.data[0].b64_json)
+
+
+def research(prompt: str, purpose: str, model: str = WONDER) -> dict:
+    """Responses API with Meta's web_search tool: live, cited answers. Searches bill $2.50 / 1,000."""
+    import httpx
+
+    ledger.guard(0.3, "meta")
+    r = httpx.post(f"{META_BASE}/responses", headers={"Authorization": f"Bearer {key('META_API_KEY')}"}, timeout=600,
+                   json={"model": model, "tools": [{"type": "web_search"}], "reasoning": {"effort": "low"},
+                         "max_output_tokens": 6000, "input": prompt})
+    r.raise_for_status()
+    j = r.json()
+    u = j.get("usage", {})
+    searches = sum(1 for o in j.get("output", []) if o.get("type") == "web_search_call")
+    text, sources = "", []
+    for o in j.get("output", []):
+        if o.get("type") == "message":
+            for c in o.get("content", []):
+                text += c.get("text", "")
+                sources += [a.get("url") for a in c.get("annotations", []) if a.get("url")]
+    usd = ledger.token_cost(model, u.get("input_tokens", 0), u.get("output_tokens", 0)) + 0.0025 * searches
+    ledger.record("meta", model, purpose, usd, prompt_tokens=u.get("input_tokens"), completion_tokens=u.get("output_tokens"),
+                  searches=searches)
+    return {"text": text, "sources": list(dict.fromkeys(sources))}

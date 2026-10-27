@@ -137,7 +137,9 @@ def get(name: str):
                  for i, o in enumerate(st.get("originals", []))]
     return {"name": name, "ready": True, "status": status, "error": err, "song": f"/files/{name}/song.mp3",
             "song_map": {k: st["song_map"].get(k) for k in ("title_guess", "tempo_bpm", "key", "feel", "sections", "the_song_is_about")},
-            "originals": originals, "musicians": musicians, "log": st["log"][-30:]}
+            "originals": originals, "musicians": musicians, "log": st["log"][-30:],
+            "album": f"/files/{name}/cards/album.png" if (s.dir / "cards" / "album.png").exists() else None,
+            "final": f"/files/{name}/final.mp3" if (s.dir / "final.mp3").exists() else None}
 
 
 @app.get("/files/{name}/{path:path}")
@@ -211,6 +213,18 @@ async def sketch(name: str, mid: str, kind: str = Form("hum"), words: str = Form
     def run():
         Session(name).sketch(mid, raw, kind, words)
     _job(name, "They're learning your idea" if kind == "hum" else "They're learning your groove", run)
+    return {"ok": True}
+
+
+@app.post("/api/session/{name}/finish")
+def finish(name: str):
+    def run():
+        s = Session(name)
+        _status(name, "Mixing the finished song")
+        s.final_mix(s.dir / "final.mp3")
+        _status(name, "Painting the album cover")
+        s.album_art()
+    _job(name, "Finishing the song", run)
     return {"ok": True}
 
 

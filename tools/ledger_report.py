@@ -16,10 +16,10 @@ for d in by_day.values():
     for p, v in d.items():
         total[p] += v
 out = ["# Cost ledger", "", "Generated from `ledger/calls.jsonl` by `tools/ledger_report.py`. Every paid call is",
-       "logged before its result is used. Credits: $150 Meta Model API, $100 Baseten, $100 Modal.",
+       "logged before its result is used. Credits: $150 Meta Model API, $100 Baseten, about $42 Modal (workspace spend limit $0).",
        "Code-enforced stops: $140 Meta, $95 Baseten, $40 a day across both.", "",
        "| Provider | Spent | Credit |", "|---|---:|---:|"]
-credit = {"meta": 150, "baseten": 100, "modal": 100}
+credit = {"meta": 150, "baseten": 100, "modal": 42}
 for p in ("meta", "baseten", "modal"):
     out.append(f"| {p} | ${total.get(p, 0):.4f} | ${credit[p]} |")
 out += ["", "## By day", "", "| Day | Meta | Baseten | Modal |", "|---|---:|---:|---:|"]

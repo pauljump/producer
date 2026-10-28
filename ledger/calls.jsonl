@@ -525,3 +525,5 @@
 {"ts": "2026-10-27T19:38:47", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002834, "prompt_tokens": 1091, "completion_tokens": 346}
 {"ts": "2026-10-27T19:38:53", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005533, "prompt_tokens": 1669, "completion_tokens": 811}
 {"ts": "2026-10-27T19:38:58", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader agent", "usd": 0.025356, "prompt_tokens": 4079, "completion_tokens": 452}
+{"ts": "2026-10-27T21:40:00", "provider": "modal", "model": "facebook/sam-audio-large (L40S)", "purpose": "SAM Audio first runs: setup fixes + Watchtower separation tests (from modal billing summary)", "usd": 0.63}
+{"ts": "2026-10-27T21:22:58", "provider": "modal", "model": "facebook/sam-audio-large (L40S)", "purpose": "SAM Audio: singing voice, crowd noise, people talking", "usd": 0.15, "note": "estimate; reconcile with `modal billing summary`"}

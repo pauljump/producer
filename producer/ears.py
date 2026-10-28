@@ -118,6 +118,9 @@ def stem_levels(stems: Path | None) -> dict:
     for f in sorted(stems.glob("*.wav")):
         y, _ = sf.read(str(f))
         rms[f.stem] = float(np.sqrt(np.mean(np.square(y))) + 1e-9)
+    for f in sorted((stems / "sam").glob("*.wav")) if (stems / "sam").exists() else []:
+        y, _ = sf.read(str(f))
+        rms["sam: " + f.stem.replace("-", " ")] = float(np.sqrt(np.mean(np.square(y))) + 1e-9)
     top = max(rms.values())
     out = {k: round(float(20 * np.log10(v / top)), 1) for k, v in rms.items()}
     drums = stems / "drums.wav"

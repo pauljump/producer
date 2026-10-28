@@ -1,21 +1,21 @@
 # Cost ledger
 
 Generated from `ledger/calls.jsonl` by `tools/ledger_report.py`. Every paid call is
-logged before its result is used. Credits: $150 Meta Model API, $100 Baseten, $100 Modal.
-Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
+logged before its result is used. Credits: $150 Meta Model API, $100 Baseten, about $42 Modal (workspace spend limit $0).
+Code-enforced stops: $140 Meta, $95 Baseten, $40 a day across both.
 
 | Provider | Spent | Credit |
 |---|---:|---:|
 | meta | $19.0275 | $150 |
 | baseten | $1.9451 | $100 |
-| modal | $0.0000 | $100 |
+| modal | $0.7800 | $42 |
 
 ## By day
 
 | Day | Meta | Baseten | Modal |
 |---|---:|---:|---:|
 | 2026-10-26 | $2.7274 | $0.0203 | $0.0000 |
-| 2026-10-27 | $16.3001 | $1.9248 | $0.0000 |
+| 2026-10-27 | $16.3001 | $1.9248 | $0.7800 |
 
 ## By purpose
 
@@ -28,6 +28,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-wonder-1.0 | musician take: Danny (bass) | 5 | $0.9806 |
 | meta | muse-wonder-1.0 | musician take: Mara (bass) | 4 | $0.9206 |
 | meta | muse-wonder-1.0 | musician research: Ray | 1 | $0.7727 |
+| modal | facebook/sam-audio-large (L40S) | SAM Audio first runs: setup fixes + Watchtower separation tests (from modal billing summary) | 1 | $0.6300 |
 | meta | muse-wonder-1.0 | musician research: Ellis | 1 | $0.5208 |
 | baseten | meta-models/muse-spark-open-1026 | self-check drums take | 80 | $0.4659 |
 | meta | muse-wonder-1.0 | musician take: Ellis (drums) | 2 | $0.4235 |
@@ -40,6 +41,7 @@ Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.
 | meta | muse-wonder-1.0 | bandleader: characters for the original performers | 2 | $0.1763 |
 | meta | muse-wonder-1.0 | bandleader song map: sketch-free | 1 | $0.1705 |
 | meta | muse-wonder-1.0 | self-check pairwise test: wrong key (+1) (wonder) | 6 | $0.1605 |
+| modal | facebook/sam-audio-large (L40S) | SAM Audio: singing voice, crowd noise, people talking | 1 | $0.1500 |
 | meta | muse-wonder-1.0 | bandleader song map: song | 1 | $0.1464 |
 | meta | muse-wonder-1.0 | self-check pairwise test: late 150ms (wonder) | 6 | $0.1346 |
 | baseten | meta-models/muse-spark-open-1026 | self-check bass planted test: good | 19 | $0.1297 |

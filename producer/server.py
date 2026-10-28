@@ -166,6 +166,12 @@ async def upload(file: UploadFile = File(...), name: str = Form("")):
         stems_root = d / "stems"
         subprocess.run([str(Path(__file__).resolve().parent.parent / ".venv/bin/python"), "-m", "demucs", "-n", "htdemucs_6s",
                         "-d", "cpu", "-o", str(stems_root), str(wav)], check=True, capture_output=True)
+        _status(slug, "Meta's SAM Audio is finding the voice and the room")
+        try:
+            from . import sam
+            sam.separate(wav, stems_root / "htdemucs_6s" / "upload" / "sam")
+        except Exception as e:  # SAM Audio is evidence for the ears; the session works without it
+            print("SAM Audio skipped:", e)
         _status(slug, "Listening to your song, phrase by phrase")
         s = Session.create(slug, wav, stems_root / "htdemucs_6s" / "upload")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", s.state["song"], "-b:a", "192k", str(s.dir / "song.mp3")], check=True)

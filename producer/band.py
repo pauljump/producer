@@ -74,7 +74,8 @@ and they just said this about {name}'s {instrument} take: "{words}"
 Translate their taste into a musical instruction a session player can act on. Read their words
 generously: "I don't believe it" usually means the part sounds generic or effortful, not that a
 note is wrong. "that, but less" means keep the idea and reduce. Be specific (density, register,
-rhythm, dynamics, where in the song), and keep what they did not complain about.
+rhythm, dynamics, where in the song), and keep what they did not complain about. Make the change
+big enough to hear on the first listen: a producer who has to ask twice got a timid take.
 
 SONG MAP: {song_map}
 THE TAKE THEY HEARD (notes): {take}

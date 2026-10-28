@@ -1,5 +1,9 @@
 # Producer
 
+> **Paused, Oct 28, 2026.** Paul's Meta hackathon entry moved to a social story creator for
+> autistic kids. Producer is parked, not abandoned: state, open ideas and how to resume are in
+> [docs/PARKED.md](docs/PARKED.md).
+
 > "I know nothing about music. I know what I like and what I don't like, and I'm decisive about it."
 > Rick Rubin, to Anderson Cooper (CBS, *60 Minutes*)
 

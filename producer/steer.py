@@ -40,11 +40,16 @@ def hum_to_notes(y: np.ndarray, bpm: float) -> list[dict]:
     hop = 256
     f0, voiced, _ = librosa.pyin(y, fmin=70, fmax=900, sr=SR, hop_length=hop, frame_length=2048)
     midi = np.where(voiced, librosa.hz_to_midi(np.nan_to_num(f0, nan=1.0)), np.nan)
+    # A real voice wobbles and slides; smooth the pitch over ~0.1 s so one sung note stays one note.
+    import scipy.ndimage as ndi
+    filled = np.where(np.isnan(midi), 0, midi)
+    smooth = ndi.median_filter(filled, size=9)
+    midi = np.where(np.isnan(midi), np.nan, smooth)
     t = librosa.frames_to_time(np.arange(len(midi)), sr=SR, hop_length=hop)
     notes, cur = [], None
     for i, m in enumerate(midi):
         r = None if np.isnan(m) else int(round(m))
-        if cur and (r is None or abs(r - cur["midi"]) >= 1):
+        if cur and (r is None or abs(m - np.median(cur["vals"])) >= 0.75):
             notes.append(cur)
             cur = None
         if r is not None and cur is None:

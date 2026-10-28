@@ -186,14 +186,17 @@ class Session:
         ch = m["character"]
         said, translation = kw.pop("said", None), kw.pop("translation", None)
         plan_note = kw.pop("plan_note", None)
+        label = kw.pop("label", None)
         if plan_note:
             ch = {**ch, "plan": f'{plan_note} (Your own plan was: {ch.get("plan", "")})'}
         take = band.play(ch, self.analysis, self.state["song_map"], self.chart(), self._audio_part(),
                          engineer=self.engineer(ch["instrument"]), **kw)
-        take["producer_said"], take["translation"] = said, translation
-        m["takes"].append(take)
-        take["audio"] = self.write_take_audio(mid, len(m["takes"]) - 1, take)
-        self.log("take", musician=mid, take=len(m["takes"]) - 1, engineer_rounds=len(take["engineer"]))
+        take["producer_said"], take["translation"], take["label"] = said, translation, label
+        with _SAVE:
+            m["takes"].append(take)
+            n = len(m["takes"]) - 1
+        take["audio"] = self.write_take_audio(mid, n, take)
+        self.log("take", musician=mid, take=n, engineer_rounds=len(take["engineer"]))
         self.save()
 
     def album_art(self) -> Path:

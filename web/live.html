@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Producer · Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14110f;--panel:#1d1916;--line:#2e2823;--ink:#f3ebe1;--dim:#a89b8c;--faint:#6f645a;--warm:#e8a35c;--warm2:#f0c189;--ok:#9cc59a;--bad:#e07b6a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 200px}
+h1{font:600 28px/1.1 Fraunces,Georgia,serif;margin:0}
+.sub{color:var(--dim);margin-top:4px}
+.label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:26px 0 10px}
+.btn{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 13px;font:500 14px Inter;cursor:pointer}
+.btn:hover{border-color:var(--dim)} .btn:disabled{opacity:.4}
+.btn.go{background:var(--warm);color:#1a120a;border-color:var(--warm);font-size:18px;padding:14px 26px;border-radius:14px}
+.btn.yes{border-color:var(--ok);color:var(--ok)} .btn.no{border-color:var(--bad);color:var(--bad)}
+.btn.on{background:var(--warm);color:#1a120a;border-color:var(--warm)}
+.players{display:grid;gap:12px}
+.player{display:grid;grid-template-columns:84px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px}
+.player img{width:84px;height:84px;border-radius:12px;object-fit:cover;background:#241f1b}
+.name{font:600 18px Fraunces,serif}
+.inst{color:var(--dim);font-size:13px}
+.versions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.v{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;color:var(--dim);cursor:pointer}
+.v.cur{border-color:var(--warm);color:var(--warm2);background:#e8a35c1a}
+.v.next{border-style:dashed;border-color:var(--warm)}
+.v.wait{opacity:.55;cursor:default;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.25}}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.say{position:fixed;left:0;right:0;bottom:0;background:#0d0b09f2;border-top:1px solid var(--line);padding:12px 16px}
+.say .in{max-width:980px;margin:0 auto}
+.leader{font:400 18px/1.4 Fraunces,serif;min-height:26px}
+.heard{color:var(--dim);font-size:13px;min-height:18px}
+input[type=text]{flex:1;min-width:200px;background:#120f0d;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;font:16px Inter}
+input[type=text]:focus{outline:none;border-color:var(--warm)}
+.talk{font-size:16px;padding:12px 18px;border-radius:12px}
+.talk.rec{background:var(--bad);border-color:var(--bad);color:#fff}
+.bar{height:6px;background:var(--panel);border-radius:6px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:var(--warm2)}
+.status{color:var(--dim);font-size:13px;margin-top:6px}
+.invite{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="title">Live session</h1>
+  <div class="sub" id="sub">The song keeps playing. Say what you feel. They change at the next bar.</div>
+  <div class="row" style="margin-top:18px">
+    <button class="btn go" id="start">Start session</button>
+    <span class="status" id="clock"></span>
+  </div>
+  <div class="bar"><i id="pos"></i></div>
+  <div class="status" id="status"></div>
+
+  <div class="label">The band</div>
+  <div class="players" id="players"></div>
+
+  <div class="label">Bring someone in</div>
+  <div class="invite">
+    <button class="btn" data-ask="a bass player">Bass</button>
+    <button class="btn" data-ask="a drummer">Drums</button>
+    <button class="btn" data-ask="someone on keys">Keys</button>
+    <button class="btn" data-ask="a string player">Strings</button>
+    <button class="btn" data-ask="an organ player">Organ</button>
+  </div>
+</div>
+
+<div class="say"><div class="in">
+  <div class="leader" id="leader">Hit Start, then just react. "Yes." "No." "More of that." "Too busy." "Give me something jazzier."</div>
+  <div class="heard" id="heard"></div>
+  <div class="row">
+    <button class="btn yes" id="yes">Yes</button>
+    <button class="btn no" id="no">No</button>
+    <input type="text" id="words" placeholder="or type it: that, but less">
+    <button class="btn talk" id="talk">Hold to talk</button>
+  </div>
+</div></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const name = new URLSearchParams(location.search).get('s');
+let S = null, ctx = null, t0 = 0, running = false, duration = 1, downbeats = [];
+const players = {};   // id -> {versions: {n: {url, buf, src, gain}}, current, muted}
+const songT = {};
+const pendingSwitch = {};
+
+async function api(path, form){
+  const r = await fetch(path, form ? {method: 'POST', body: form} : {});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.detail || j.error || r.statusText);
+  return j;
+}
+function fd(o){ const f = new FormData(); for (const [k, v] of Object.entries(o)) f.append(k, v); return f; }
+function pos(){ return running ? ((ctx.currentTime - t0) % duration) : 0; }
+function section(){ const t = pos(); const s = (S.song_map.sections || []).find(x => x.start <= t && t < x.end); return s ? s.label : 'song'; }
+function nextBarTime(){ // audio-clock time of the next downbeat
+  const p = pos(); let nb = downbeats.find(d => d > p + 0.05);
+  const loops = Math.floor((ctx.currentTime - t0) / duration);
+  if (nb === undefined) nb = duration + (downbeats[0] || 0);
+  return t0 + loops * duration + nb;
+}
+async function decode(url){ const r = await fetch(url); return ctx.decodeAudioData(await r.arrayBuffer()); }
+function startLoop(buf, gain){ // start a looping source in phase with the song
+  const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.loopEnd = duration; s.connect(gain);
+  const now = ctx.currentTime + 0.05; s.start(now, ((now - t0) % duration + duration) % duration); return s;
+}
+
+async function refresh(){
+  S = await api('/api/session/' + name);
+  $('#title').textContent = S.song_map?.title_guess || name;
+  duration = S.duration || duration; downbeats = S.downbeats || [];
+  $('#status').textContent = S.status?.busy ? S.status.doing : (S.error ? 'Something went wrong: ' + S.error.error : '');
+  draw();
+  if (ctx) await sync();
+}
+function draw(){
+  const box = $('#players'); box.innerHTML = '';
+  for (const m of S.musicians) {
+    const el = document.createElement('div'); el.className = 'player';
+    const vs = m.takes.map(t => `<span class="v ${m.live === t.n ? 'cur' : ''} ${pendingSwitch[m.id] === t.n ? 'next' : ''}" data-m="${m.id}" data-n="${t.n}" title="${(t.to_producer||'').replace(/"/g,'&quot;')}">${t.label || 'take ' + (t.n + 1)}</span>`).join('')
+      + (m.pending || []).map(p => `<span class="v wait">${p}…</span>`).join('');
+    el.innerHTML = `<img src="${m.card || ''}" alt=""><div><div class="name">${m.character.name}</div>
+      <div class="inst">${m.character.instrument}${m.muted ? ' · resting' : ''}</div><div class="versions">${vs}</div></div>`;
+    box.appendChild(el);
+  }
+  box.querySelectorAll('.v[data-n]').forEach(v => v.onclick = () => say(`play your "${v.textContent}" version`, v.dataset.m));
+}
+
+let syncing = false;
+async function sync(){ // load new versions, apply switches at the next bar
+  if (syncing) return; syncing = true;
+  try { await _sync(); } finally { syncing = false; }
+}
+async function _sync(){
+  for (const m of S.musicians) {
+    const p = players[m.id] ||= {versions: {}, current: null, muted: false};
+    for (const t of m.takes) {
+      if (p.versions[t.n]) continue;
+      const v = p.versions[t.n] = {url: t.solo, ready: false};
+      const buf = await decode(t.solo);
+      v.gain = ctx.createGain(); v.gain.gain.value = 0; v.gain.connect(ctx.destination); v.buf = buf; v.ready = true;
+      if (running) v.src = startLoop(v.buf, v.gain);
+    }
+    const want = m.muted ? null : m.live;
+    if (want !== p.current || m.muted !== p.muted) {
+      const at = running ? nextBarTime() : ctx.currentTime;
+      pendingSwitch[m.id] = want;
+      if (want !== null && !(p.versions[want] && p.versions[want].ready)) continue; // switch once it has loaded
+      for (const [n, v] of Object.entries(p.versions)) {
+        if (!v.ready) continue;
+        v.gain.gain.cancelScheduledValues(at);
+        v.gain.gain.setTargetAtTime(Number(n) === want ? 1 : 0, at, 0.02);
+      }
+      setTimeout(() => { delete pendingSwitch[m.id]; draw(); }, Math.max(0, (at - ctx.currentTime) * 1000) + 60);
+      p.current = want; p.muted = m.muted;
+    }
+  }
+  draw();
+}
+
+$('#start').onclick = async () => {
+  if (running) { await ctx.suspend(); running = false; $('#start').textContent = 'Resume'; return; }
+  if (!ctx) {
+    ctx = new AudioContext(); $('#start').textContent = 'Loading…';
+    songT.buf = await decode(S.song); songT.gain = ctx.createGain(); songT.gain.connect(ctx.destination);
+    await sync();
+    t0 = ctx.currentTime + 0.1; running = true;
+    const s = ctx.createBufferSource(); s.buffer = songT.buf; s.loop = true; s.loopEnd = duration; s.connect(songT.gain); s.start(t0, 0);
+    for (const p of Object.values(players)) for (const v of Object.values(p.versions)) { if (!v.ready) continue; const x = ctx.createBufferSource(); x.buffer = v.buf; x.loop = true; x.loopEnd = duration; x.connect(v.gain); x.start(t0, 0); v.src = x; }
+    $('#start').textContent = 'Pause'; return;
+  }
+  await ctx.resume(); running = true; $('#start').textContent = 'Pause';
+};
+(function tick(){
+  if (running) { const t = pos(); $('#pos').style.width = (t / duration * 100) + '%'; $('#clock').textContent = section(); }
+  requestAnimationFrame(tick);
+})();
+
+async function say(words, who){
+  $('#heard').textContent = `You: "${words}"`; $('#leader').textContent = '…';
+  try {
+    const d = await api(`/api/live/${name}/say`, fd({words: who ? `${words} (to ${who})` : words, section: running ? section() : 'song'}));
+    $('#leader').textContent = d.say || 'Got it.';
+    if (d.develop && d.develop.length) $('#leader').textContent += ' (writing a new version, keep listening)';
+  } catch (e) { $('#leader').textContent = e.message; }
+  refresh();
+}
+$('#yes').onclick = () => say('Yes. That. Keep that.');
+$('#no').onclick = () => say("No, I don't like that.");
+$('#words').onkeydown = e => { if (e.key === 'Enter' && e.target.value.trim()) { say(e.target.value.trim()); e.target.value = ''; } };
+document.querySelectorAll('[data-ask]').forEach(b => b.onclick = async () => {
+  try { await api(`/api/live/${name}/join`, fd({ask: b.dataset.ask})); } catch (e) { $('#status').textContent = e.message; }
+  refresh();
+});
+let rec, parts = [];
+$('#talk').onpointerdown = async () => {
+  if (!navigator.mediaDevices) { $('#leader').textContent = 'Talking needs the https page. Type it, or tap Yes / No.'; return; }
+  const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+  rec = new MediaRecorder(stream); parts = []; rec.ondataavailable = e => parts.push(e.data);
+  rec.onstop = async () => { stream.getTracks().forEach(t => t.stop());
+    $('#leader').textContent = '…';
+    try { const d = await api(`/api/live/${name}/say`, (() => { const f = fd({section: running ? section() : 'song'}); f.append('voice', new Blob(parts), 'say.webm'); return f; })());
+      $('#heard').textContent = `You: "${d.heard}"`; $('#leader').textContent = d.say || 'Got it.'; } catch (e) { $('#leader').textContent = e.message; }
+    refresh(); };
+  rec.start(); $('#talk').classList.add('rec'); $('#talk').textContent = 'Listening…';
+};
+$('#talk').onpointerup = $('#talk').onpointerleave = () => { if (rec && rec.state === 'recording') { rec.stop(); $('#talk').classList.remove('rec'); $('#talk').textContent = 'Hold to talk'; } };
+document.addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; if (e.key === 'y') $('#yes').click(); if (e.key === 'n') $('#no').click(); });
+
+refresh(); setInterval(refresh, 2000);
+</script>
+</body>
+</html>

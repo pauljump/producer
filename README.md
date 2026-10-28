@@ -71,6 +71,7 @@ Meta, or $95 on Baseten (below the $150 and $100 credits), and logs each call to
 | Oct 27 | SAM Audio on Modal (chunked, deployed), called on every upload for voice and room evidence; SAM vs Demucs test | `modal_app/separate.py`, `producer/sam.py`, `docs/SEPARATION-TEST.md` |
 | Oct 27 | Hum / beatbox steering: pYIN + onset tracking, Spark 1.2 hears the feel, Wonder places the idea, the musician plays it in character | `producer/steer.py` |
 | Oct 27 | Musicians research their influences (Wonder + Meta `web_search`, cited); Finish the song: final mix + Wonder-briefed Muse Image cover | `producer/models.py` (`research`), `producer/band.py`, `producer/session.py` |
+| Oct 28 | Live session (Paul's call: no waiting between takes): each player pre-writes a palette of versions (Wonder, in parallel, engineer-checked); the song loops; Spark Open on Baseten routes the producer's live reactions to a version in ~2.5 s, switched at the next bar; liked versions seed new ones in the background | `producer/live.py`, `web/live.html` |
 | Oct 27 | Bandleader agent: Wonder hires, briefs musician sub-agents in parallel, and reports back through its own tools | `producer/bandleader.py` |
 
 Prior exploration (a separate, earlier Slopify app) is not part of this entry and none of its

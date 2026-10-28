@@ -54,6 +54,15 @@ async def gate(request, call_next):
                             "style='font-size:18px;padding:10px;border-radius:10px'> <button>Enter</button></form>", 401)
     return await call_next(request)
 _locks: dict[str, threading.Lock] = {}
+_sessions: dict[str, Session] = {}
+
+
+def S(name: str) -> Session:
+    """One live Session object per song, shared by every request and background job, so a live
+    switch and a player still writing versions never overwrite each other's state."""
+    if name not in _sessions or not _sessions[name].state:
+        _sessions[name] = Session(name)
+    return _sessions[name]
 
 
 def _status(name: str, text: str | None):
@@ -109,6 +118,11 @@ def index():
     return FileResponse(WEB / "index.html")
 
 
+@app.get("/live")
+def live_page():
+    return FileResponse(WEB / "live.html")
+
+
 app.mount("/static", StaticFiles(directory=WEB), name="static")
 
 
@@ -119,19 +133,22 @@ def sessions():
 
 @app.get("/api/session/{name}")
 def get(name: str):
-    s = Session(name)
+    s = S(name)
     status = json.loads((s.dir / "status.json").read_text()) if (s.dir / "status.json").exists() else {"busy": False}
     err = json.loads((s.dir / "error.json").read_text()) if (s.dir / "error.json").exists() else None
     if not s.state:
         return {"name": name, "status": status, "error": err, "ready": False}
     st = s.state
     musicians = []
-    for mid, m in st["musicians"].items():
+    for mid, m in list(st["musicians"].items()):
         takes = [{"n": i, "to_producer": t.get("to_producer"), "producer_said": t.get("producer_said"),
                   "reply": (t.get("translation") or {}).get("reply_to_producer"),
                   "engineer_rounds": len(t.get("engineer", [])), "sent_back": t.get("sent_back", False),
                   "solo": f"/files/{name}/takes/{mid}-{i}.solo.mp3"} for i, t in enumerate(m["takes"])]
+        for i, t in enumerate(m["takes"]):
+            takes[i]["label"] = t.get("label")
         musicians.append({"id": mid, "character": m["character"], "kept": m["kept"], "takes": takes,
+                          "live": m.get("live"), "muted": m.get("muted", False), "pending": m.get("pending", []),
                           "card": f"/files/{name}/cards/{mid}.png" if (s.dir / "cards" / f"{mid}.png").exists() else None})
     originals = [{**o, "card": f"/files/{name}/cards/original-{i}.png" if (s.dir / "cards" / f"original-{i}.png").exists() else None}
                  for i, o in enumerate(st.get("originals", []))]
@@ -140,6 +157,8 @@ def get(name: str):
             "originals": originals, "musicians": musicians, "log": st["log"][-30:],
             "album": f"/files/{name}/cards/album.png" if (s.dir / "cards" / "album.png").exists() else None,
             "final": f"/files/{name}/final.mp3" if (s.dir / "final.mp3").exists() else None,
+            "downbeats": s.analysis["downbeats"], "duration": s.analysis["duration"],
+            "live_log": [e for e in st["log"] if e["event"] == "live"][-8:],
             "bandleader": json.loads((s.dir / "bandleader.json").read_text()) if (s.dir / "bandleader.json").exists() else None}
 
 
@@ -174,6 +193,7 @@ async def upload(file: UploadFile = File(...), name: str = Form("")):
             print("SAM Audio skipped:", e)
         _status(slug, "Listening to your song, phrase by phrase")
         s = Session.create(slug, wav, stems_root / "htdemucs_6s" / "upload")
+        _sessions[slug] = s
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", s.state["song"], "-b:a", "192k", str(s.dir / "song.mp3")], check=True)
         _status(slug, "Drawing the people on your recording")
         for i, o in enumerate(s.state.get("originals", [])[:4]):
@@ -186,7 +206,7 @@ async def upload(file: UploadFile = File(...), name: str = Form("")):
 @app.post("/api/session/{name}/invite")
 def invite(name: str, ask: str = Form(...)):
     def run():
-        s = Session(name)
+        s = S(name)
         _status(name, f'Finding someone for "{ask}"')
         mid = s.invite(ask)
         _status(name, "Painting their portrait")
@@ -206,7 +226,7 @@ async def say(name: str, mid: str, words: str = Form(""), voice: UploadFile | No
         raise HTTPException(400, "say something")
 
     def run():
-        Session(name).direct(mid, words)
+        S(name).direct(mid, words)
     _job(name, "They're playing it again", run)
     return {"heard": words}
 
@@ -218,7 +238,7 @@ async def sketch(name: str, mid: str, kind: str = Form("hum"), words: str = Form
     raw = await clip.read()
 
     def run():
-        Session(name).sketch(mid, raw, kind, words)
+        S(name).sketch(mid, raw, kind, words)
     _job(name, "They're learning your idea" if kind == "hum" else "They're learning your groove", run)
     return {"ok": True}
 
@@ -233,16 +253,48 @@ async def talk_to_band(name: str, words: str = Form(""), voice: UploadFile | Non
         raise HTTPException(400, "say something")
 
     def run():
-        r = Session(name).ask_band(words)
+        r = S(name).ask_band(words)
         (ROOT / name / "bandleader.json").write_text(json.dumps(r, default=str))
     _job(name, "The bandleader is on it", run)
     return {"heard": words}
 
 
+@app.post("/api/live/{name}/join")
+def live_join(name: str, ask: str = Form(...)):
+    from . import live
+
+    def run():
+        s = S(name)
+        _status(name, f'Finding someone for "{ask}"')
+        mid = s.hire(ask)
+        _status(name, "Painting their portrait")
+        _musician_card(s, mid)
+        _status(name, f'{s.state["musicians"][mid]["character"]["name"]} is writing a few versions to try')
+        live.build_palette(s, mid)
+    _job(name, "Someone's joining", run)
+    return {"ok": True}
+
+
+@app.post("/api/live/{name}/say")
+async def live_say(name: str, words: str = Form(""), section: str = Form("song"), voice: UploadFile | None = File(None)):
+    """Mid-song reaction. Not a background job: it answers in a couple of seconds, even while
+    players are still writing versions."""
+    from . import live
+    if voice is not None:
+        from .steer import _convert
+        wav = _convert(await voice.read(), "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le")
+        words = models.transcribe(wav, len(wav) / 32000)
+    if not words.strip():
+        raise HTTPException(400, "say something")
+    import asyncio
+    d = await asyncio.to_thread(live.react, S(name), words, section)
+    return {"heard": words, **d}
+
+
 @app.post("/api/session/{name}/finish")
 def finish(name: str):
     def run():
-        s = Session(name)
+        s = S(name)
         _status(name, "Mixing the finished song")
         s.final_mix(s.dir / "final.mp3")
         _status(name, "Painting the album cover")
@@ -253,13 +305,13 @@ def finish(name: str):
 
 @app.post("/api/session/{name}/{mid}/keep")
 def keep(name: str, mid: str):
-    Session(name).keep(mid)
+    S(name).keep(mid)
     return {"ok": True}
 
 
 @app.post("/api/session/{name}/{mid}/back")
 def back(name: str, mid: str):
-    Session(name).send_back(mid)
+    S(name).send_back(mid)
     return {"ok": True}
 
 

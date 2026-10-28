@@ -166,7 +166,7 @@ def _norm(notes: list[dict], drums: bool) -> list[dict]:
 
 def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audio_part: dict,
          direction: str | None = None, previous: dict | None = None, max_turns: int = 10,
-         engineer=None, revisions: int = 2) -> dict:
+         engineer=None, revisions: int = 2, version: str | None = None, effort: str | None = None) -> dict:
     """One take. Returns {'notes' (absolute beats), 'written', 'level_lu', 'to_producer', 'checks',
     'engineer'}. If `engineer(take) -> (ok, verdicts)` is given, a submitted take goes to the
     self-check first; a failed check goes back to the musician to revise, up to `revisions` times."""
@@ -179,6 +179,10 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
     if previous:
         brief["your_last_take"] = previous["written"]
         brief["direction"] = direction
+    if version:
+        brief["this_version"] = (f"{version} This is one of several versions you are preparing for the producer to "
+                                 "switch between live. It must sound clearly different from the others in density, "
+                                 "rhythm and register; follow this version's idea over your usual habits.")
     msgs = [{"role": "system", "content": system},
             {"role": "user", "content": [{"type": "text", "text": json.dumps(brief)}, audio_part]}]
     checks, reviews, last_take = [], [], None
@@ -186,6 +190,7 @@ def play(musician: dict, analysis: dict, song_map: dict, chart: list[dict], audi
         if turn == max_turns - 2:
             msgs.append({"role": "user", "content": "Time's nearly up in the studio: call submit_take with your best take now."})
         resp = models.chat("meta", models.WONDER, msgs, purpose=f"musician take: {musician['name']} ({musician['instrument']})",
+                           **({"reasoning_effort": effort} if effort else {}),
                            estimate_usd=0.4, max_tokens=16000, tools=TOOLS)
         m = resp.choices[0].message
         msgs.append(m.model_dump(exclude_none=True))

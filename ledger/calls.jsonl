@@ -542,3 +542,174 @@
 {"ts": "2026-10-27T21:42:31", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006484, "prompt_tokens": 1631, "completion_tokens": 1046}
 {"ts": "2026-10-27T21:42:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002078, "prompt_tokens": 1091, "completion_tokens": 168}
 {"ts": "2026-10-27T21:42:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007849, "prompt_tokens": 1492, "completion_tokens": 1408}
+{"ts": "2026-10-27T21:46:52", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "live router latency test", "usd": 0.002346, "prompt_tokens": 194, "completion_tokens": 495}
+{"ts": "2026-10-27T21:46:54", "provider": "meta", "model": "muse-spark-1.3", "purpose": "live router latency test", "usd": 0.001656, "prompt_tokens": 57, "completion_tokens": 373}
+{"ts": "2026-10-27T21:46:59", "provider": "meta", "model": "muse-spark-1.2", "purpose": "live router latency test", "usd": 0.002056, "prompt_tokens": 57, "completion_tokens": 467}
+{"ts": "2026-10-27T21:48:12", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "bandleader: cast musician", "usd": 0.06168, "prompt_tokens": 1575, "completion_tokens": 2769}
+{"ts": "2026-10-27T21:48:36", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician research: Ray", "usd": 0.470056, "prompt_tokens": 98924, "completion_tokens": 2218, "searches": 12}
+{"ts": "2026-10-27T21:48:46", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician palette ideas: Ray", "usd": 0.026684, "prompt_tokens": 1521, "completion_tokens": 1030}
+{"ts": "2026-10-27T21:49:07", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.098544, "prompt_tokens": 6631, "completion_tokens": 3601}
+{"ts": "2026-10-27T21:49:20", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.175868, "prompt_tokens": 6622, "completion_tokens": 7469}
+{"ts": "2026-10-27T21:49:24", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.125376, "prompt_tokens": 6629, "completion_tokens": 4943}
+{"ts": "2026-10-27T21:49:34", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.193164, "prompt_tokens": 6616, "completion_tokens": 8335}
+{"ts": "2026-10-27T21:49:41", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.206404, "prompt_tokens": 6621, "completion_tokens": 8996}
+{"ts": "2026-10-27T21:50:05", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.290884, "prompt_tokens": 7906, "completion_tokens": 12963}
+{"ts": "2026-10-27T21:50:07", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.116372, "prompt_tokens": 9163, "completion_tokens": 3986}
+{"ts": "2026-10-27T21:50:08", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.272392, "prompt_tokens": 11863, "completion_tokens": 11247}
+{"ts": "2026-10-27T21:50:09", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.18878, "prompt_tokens": 10190, "completion_tokens": 7401}
+{"ts": "2026-10-27T21:50:20", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.253072, "prompt_tokens": 7478, "completion_tokens": 11158}
+{"ts": "2026-10-27T21:50:35", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.170428, "prompt_tokens": 17302, "completion_tokens": 5061}
+{"ts": "2026-10-27T21:50:36", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.17668, "prompt_tokens": 11795, "completion_tokens": 6475}
+{"ts": "2026-10-27T21:50:41", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.196488, "prompt_tokens": 19942, "completion_tokens": 5836}
+{"ts": "2026-10-27T21:51:03", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.249764, "prompt_tokens": 19686, "completion_tokens": 8551}
+{"ts": "2026-10-27T21:51:10", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.240636, "prompt_tokens": 12349, "completion_tokens": 9562}
+{"ts": "2026-10-27T21:51:12", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.201656, "prompt_tokens": 23544, "completion_tokens": 5374}
+{"ts": "2026-10-27T21:51:24", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.377112, "prompt_tokens": 14968, "completion_tokens": 15862}
+{"ts": "2026-10-27T21:51:43", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.331584, "prompt_tokens": 26621, "completion_tokens": 11255}
+{"ts": "2026-10-27T21:51:47", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.279544, "prompt_tokens": 15656, "completion_tokens": 10846}
+{"ts": "2026-10-27T21:51:48", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.193488, "prompt_tokens": 23867, "completion_tokens": 4901}
+{"ts": "2026-10-27T21:51:57", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.359708, "prompt_tokens": 27672, "completion_tokens": 12451}
+{"ts": "2026-10-27T21:52:10", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.270712, "prompt_tokens": 16908, "completion_tokens": 10154}
+{"ts": "2026-10-27T21:52:20", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.303104, "prompt_tokens": 26801, "completion_tokens": 9795}
+{"ts": "2026-10-27T21:52:26", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002373, "prompt_tokens": 1154, "completion_tokens": 219}
+{"ts": "2026-10-27T21:52:26", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002292, "prompt_tokens": 1154, "completion_tokens": 200}
+{"ts": "2026-10-27T21:52:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002862, "prompt_tokens": 1154, "completion_tokens": 334}
+{"ts": "2026-10-27T21:52:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002514, "prompt_tokens": 1154, "completion_tokens": 252}
+{"ts": "2026-10-27T21:52:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005567, "prompt_tokens": 1621, "completion_tokens": 833}
+{"ts": "2026-10-27T21:52:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006342, "prompt_tokens": 1575, "completion_tokens": 1029}
+{"ts": "2026-10-27T21:52:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006858, "prompt_tokens": 1597, "completion_tokens": 1144}
+{"ts": "2026-10-27T21:52:37", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.008148, "prompt_tokens": 1704, "completion_tokens": 1416}
+{"ts": "2026-10-27T21:52:41", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002065, "prompt_tokens": 1091, "completion_tokens": 165}
+{"ts": "2026-10-27T21:52:42", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.395716, "prompt_tokens": 35504, "completion_tokens": 12685}
+{"ts": "2026-10-27T21:52:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002254, "prompt_tokens": 1154, "completion_tokens": 191}
+{"ts": "2026-10-27T21:52:48", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.247536, "prompt_tokens": 21779, "completion_tokens": 8021}
+{"ts": "2026-10-27T21:52:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002514, "prompt_tokens": 1154, "completion_tokens": 252}
+{"ts": "2026-10-27T21:52:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00273, "prompt_tokens": 1154, "completion_tokens": 303}
+{"ts": "2026-10-27T21:52:49", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006101, "prompt_tokens": 1474, "completion_tokens": 1002}
+{"ts": "2026-10-27T21:52:53", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002509, "prompt_tokens": 1154, "completion_tokens": 251}
+{"ts": "2026-10-27T21:52:54", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005652, "prompt_tokens": 1621, "completion_tokens": 853}
+{"ts": "2026-10-27T21:52:55", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00512, "prompt_tokens": 1573, "completion_tokens": 742}
+{"ts": "2026-10-27T21:52:56", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006235, "prompt_tokens": 1673, "completion_tokens": 975}
+{"ts": "2026-10-27T21:52:56", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.3058, "prompt_tokens": 18665, "completion_tokens": 11557}
+{"ts": "2026-10-27T21:52:58", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002193, "prompt_tokens": 1091, "completion_tokens": 195}
+{"ts": "2026-10-27T21:53:00", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006129, "prompt_tokens": 1632, "completion_tokens": 962}
+{"ts": "2026-10-27T21:53:02", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.427304, "prompt_tokens": 37321, "completion_tokens": 13901}
+{"ts": "2026-10-27T21:53:05", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005372, "prompt_tokens": 1506, "completion_tokens": 821}
+{"ts": "2026-10-27T21:53:06", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.204832, "prompt_tokens": 26313, "completion_tokens": 4979}
+{"ts": "2026-10-27T21:53:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002692, "prompt_tokens": 1154, "completion_tokens": 294}
+{"ts": "2026-10-27T21:53:12", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002862, "prompt_tokens": 1154, "completion_tokens": 334}
+{"ts": "2026-10-27T21:53:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002828, "prompt_tokens": 1154, "completion_tokens": 326}
+{"ts": "2026-10-27T21:53:14", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002488, "prompt_tokens": 1154, "completion_tokens": 246}
+{"ts": "2026-10-27T21:53:21", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006001, "prompt_tokens": 1707, "completion_tokens": 910}
+{"ts": "2026-10-27T21:53:22", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005805, "prompt_tokens": 1632, "completion_tokens": 886}
+{"ts": "2026-10-27T21:53:23", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006735, "prompt_tokens": 1699, "completion_tokens": 1085}
+{"ts": "2026-10-27T21:53:23", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007658, "prompt_tokens": 1676, "completion_tokens": 1309}
+{"ts": "2026-10-27T21:53:24", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002524, "prompt_tokens": 1091, "completion_tokens": 273}
+{"ts": "2026-10-27T21:53:29", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.368964, "prompt_tokens": 46506, "completion_tokens": 9147}
+{"ts": "2026-10-27T21:53:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002267, "prompt_tokens": 1154, "completion_tokens": 194}
+{"ts": "2026-10-27T21:53:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002169, "prompt_tokens": 1154, "completion_tokens": 171}
+{"ts": "2026-10-27T21:53:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002207, "prompt_tokens": 1154, "completion_tokens": 180}
+{"ts": "2026-10-27T21:53:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002467, "prompt_tokens": 1154, "completion_tokens": 241}
+{"ts": "2026-10-27T21:53:35", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.010988, "prompt_tokens": 1589, "completion_tokens": 2118}
+{"ts": "2026-10-27T21:53:41", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005456, "prompt_tokens": 1556, "completion_tokens": 826}
+{"ts": "2026-10-27T21:53:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005042, "prompt_tokens": 1616, "completion_tokens": 711}
+{"ts": "2026-10-27T21:53:42", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.22926, "prompt_tokens": 25050, "completion_tokens": 6453}
+{"ts": "2026-10-27T21:53:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004208, "prompt_tokens": 1551, "completion_tokens": 534}
+{"ts": "2026-10-27T21:53:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005542, "prompt_tokens": 1571, "completion_tokens": 842}
+{"ts": "2026-10-27T21:53:45", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002175, "prompt_tokens": 1091, "completion_tokens": 191}
+{"ts": "2026-10-27T21:53:53", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007103, "prompt_tokens": 1504, "completion_tokens": 1229}
+{"ts": "2026-10-27T21:54:45", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.307272, "prompt_tokens": 27938, "completion_tokens": 9776}
+{"ts": "2026-10-27T21:55:50", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.310072, "prompt_tokens": 31178, "completion_tokens": 9268}
+{"ts": "2026-10-27T21:56:21", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.345828, "prompt_tokens": 33292, "completion_tokens": 10633}
+{"ts": "2026-10-27T21:56:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002212, "prompt_tokens": 1154, "completion_tokens": 181}
+{"ts": "2026-10-27T21:56:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002314, "prompt_tokens": 1154, "completion_tokens": 205}
+{"ts": "2026-10-27T21:56:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002229, "prompt_tokens": 1154, "completion_tokens": 185}
+{"ts": "2026-10-27T21:56:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002327, "prompt_tokens": 1154, "completion_tokens": 208}
+{"ts": "2026-10-27T21:56:33", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005209, "prompt_tokens": 1566, "completion_tokens": 765}
+{"ts": "2026-10-27T21:56:34", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005837, "prompt_tokens": 1559, "completion_tokens": 915}
+{"ts": "2026-10-27T21:56:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007454, "prompt_tokens": 1584, "completion_tokens": 1288}
+{"ts": "2026-10-27T21:56:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002082, "prompt_tokens": 1091, "completion_tokens": 169}
+{"ts": "2026-10-27T21:56:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007114, "prompt_tokens": 1577, "completion_tokens": 1210}
+{"ts": "2026-10-27T21:56:43", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005863, "prompt_tokens": 1481, "completion_tokens": 944}
+{"ts": "2026-10-27T21:57:22", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician palette ideas: Ray", "usd": 0.022804, "prompt_tokens": 1521, "completion_tokens": 836}
+{"ts": "2026-10-27T21:57:42", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.102824, "prompt_tokens": 6641, "completion_tokens": 3813}
+{"ts": "2026-10-27T21:57:46", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.138628, "prompt_tokens": 6647, "completion_tokens": 5602}
+{"ts": "2026-10-27T21:57:49", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.156536, "prompt_tokens": 6639, "completion_tokens": 6499}
+{"ts": "2026-10-27T21:57:51", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.233376, "prompt_tokens": 6639, "completion_tokens": 10341}
+{"ts": "2026-10-27T21:57:53", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.085532, "prompt_tokens": 8808, "completion_tokens": 2515}
+{"ts": "2026-10-27T21:57:59", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002271, "prompt_tokens": 1154, "completion_tokens": 195}
+{"ts": "2026-10-27T21:58:00", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002407, "prompt_tokens": 1154, "completion_tokens": 227}
+{"ts": "2026-10-27T21:58:00", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002684, "prompt_tokens": 1154, "completion_tokens": 292}
+{"ts": "2026-10-27T21:58:00", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002314, "prompt_tokens": 1154, "completion_tokens": 205}
+{"ts": "2026-10-27T21:58:01", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.134976, "prompt_tokens": 10974, "completion_tokens": 4554}
+{"ts": "2026-10-27T21:58:02", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.205532, "prompt_tokens": 6643, "completion_tokens": 8948}
+{"ts": "2026-10-27T21:58:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00225, "prompt_tokens": 1154, "completion_tokens": 190}
+{"ts": "2026-10-27T21:58:06", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002156, "prompt_tokens": 1154, "completion_tokens": 168}
+{"ts": "2026-10-27T21:58:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005705, "prompt_tokens": 1586, "completion_tokens": 876}
+{"ts": "2026-10-27T21:58:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005474, "prompt_tokens": 1567, "completion_tokens": 827}
+{"ts": "2026-10-27T21:58:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00579, "prompt_tokens": 1606, "completion_tokens": 890}
+{"ts": "2026-10-27T21:58:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002807, "prompt_tokens": 1154, "completion_tokens": 321}
+{"ts": "2026-10-27T21:58:07", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.0059, "prompt_tokens": 1670, "completion_tokens": 897}
+{"ts": "2026-10-27T21:58:08", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002582, "prompt_tokens": 1154, "completion_tokens": 268}
+{"ts": "2026-10-27T21:58:10", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002341, "prompt_tokens": 1091, "completion_tokens": 230}
+{"ts": "2026-10-27T21:58:11", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.163316, "prompt_tokens": 11474, "completion_tokens": 5871}
+{"ts": "2026-10-27T21:58:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00613, "prompt_tokens": 1565, "completion_tokens": 982}
+{"ts": "2026-10-27T21:58:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006155, "prompt_tokens": 1541, "completion_tokens": 995}
+{"ts": "2026-10-27T21:58:14", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006429, "prompt_tokens": 1651, "completion_tokens": 1027}
+{"ts": "2026-10-27T21:58:14", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005424, "prompt_tokens": 1691, "completion_tokens": 779}
+{"ts": "2026-10-27T21:58:18", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.003493, "prompt_tokens": 1091, "completion_tokens": 501}
+{"ts": "2026-10-27T21:58:18", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.009335, "prompt_tokens": 1542, "completion_tokens": 1743}
+{"ts": "2026-10-27T21:58:22", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.146868, "prompt_tokens": 15682, "completion_tokens": 4207}
+{"ts": "2026-10-27T21:58:22", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.251772, "prompt_tokens": 15868, "completion_tokens": 9415}
+{"ts": "2026-10-27T21:58:23", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005638, "prompt_tokens": 1814, "completion_tokens": 793}
+{"ts": "2026-10-27T21:58:26", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002271, "prompt_tokens": 1154, "completion_tokens": 195}
+{"ts": "2026-10-27T21:58:27", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00225, "prompt_tokens": 1154, "completion_tokens": 190}
+{"ts": "2026-10-27T21:58:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002207, "prompt_tokens": 1154, "completion_tokens": 180}
+{"ts": "2026-10-27T21:58:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002547, "prompt_tokens": 1154, "completion_tokens": 260}
+{"ts": "2026-10-27T21:58:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.00239, "prompt_tokens": 1154, "completion_tokens": 223}
+{"ts": "2026-10-27T21:58:28", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002216, "prompt_tokens": 1154, "completion_tokens": 182}
+{"ts": "2026-10-27T21:58:29", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002556, "prompt_tokens": 1154, "completion_tokens": 262}
+{"ts": "2026-10-27T21:58:29", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002373, "prompt_tokens": 1154, "completion_tokens": 219}
+{"ts": "2026-10-27T21:58:32", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.179136, "prompt_tokens": 11669, "completion_tokens": 6623}
+{"ts": "2026-10-27T21:58:32", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006174, "prompt_tokens": 1570, "completion_tokens": 991}
+{"ts": "2026-10-27T21:58:33", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004927, "prompt_tokens": 1558, "completion_tokens": 701}
+{"ts": "2026-10-27T21:58:33", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004841, "prompt_tokens": 1574, "completion_tokens": 676}
+{"ts": "2026-10-27T21:58:34", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005303, "prompt_tokens": 1597, "completion_tokens": 778}
+{"ts": "2026-10-27T21:58:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002133, "prompt_tokens": 1091, "completion_tokens": 181}
+{"ts": "2026-10-27T21:58:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005263, "prompt_tokens": 1603, "completion_tokens": 767}
+{"ts": "2026-10-27T21:58:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006043, "prompt_tokens": 1638, "completion_tokens": 940}
+{"ts": "2026-10-27T21:58:36", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005483, "prompt_tokens": 1632, "completion_tokens": 810}
+{"ts": "2026-10-27T21:58:37", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002392, "prompt_tokens": 1091, "completion_tokens": 242}
+{"ts": "2026-10-27T21:58:37", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007989, "prompt_tokens": 1556, "completion_tokens": 1422}
+{"ts": "2026-10-27T21:58:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005857, "prompt_tokens": 1493, "completion_tokens": 939}
+{"ts": "2026-10-27T21:58:43", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005354, "prompt_tokens": 1560, "completion_tokens": 801}
+{"ts": "2026-10-27T21:58:46", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.110508, "prompt_tokens": 16697, "completion_tokens": 2186}
+{"ts": "2026-10-27T21:59:14", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.205252, "prompt_tokens": 18203, "completion_tokens": 6622}
+{"ts": "2026-10-27T21:59:35", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.20028, "prompt_tokens": 22830, "completion_tokens": 5448}
+{"ts": "2026-10-27T21:59:39", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002407, "prompt_tokens": 1154, "completion_tokens": 227}
+{"ts": "2026-10-27T21:59:41", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002922, "prompt_tokens": 1154, "completion_tokens": 348}
+{"ts": "2026-10-27T21:59:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002586, "prompt_tokens": 1154, "completion_tokens": 269}
+{"ts": "2026-10-27T21:59:42", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002484, "prompt_tokens": 1154, "completion_tokens": 245}
+{"ts": "2026-10-27T21:59:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005882, "prompt_tokens": 1622, "completion_tokens": 907}
+{"ts": "2026-10-27T21:59:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.007834, "prompt_tokens": 1602, "completion_tokens": 1372}
+{"ts": "2026-10-27T21:59:48", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.005188, "prompt_tokens": 1641, "completion_tokens": 738}
+{"ts": "2026-10-27T21:59:50", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.009177, "prompt_tokens": 1718, "completion_tokens": 1654}
+{"ts": "2026-10-27T21:59:52", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.003034, "prompt_tokens": 1091, "completion_tokens": 393}
+{"ts": "2026-10-27T22:00:05", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.014547, "prompt_tokens": 1713, "completion_tokens": 2919}
+{"ts": "2026-10-27T22:00:17", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.148604, "prompt_tokens": 29346, "completion_tokens": 1561}
+{"ts": "2026-10-27T22:00:30", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.151496, "prompt_tokens": 30244, "completion_tokens": 1526}
+{"ts": "2026-10-27T22:00:46", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.221404, "prompt_tokens": 31006, "completion_tokens": 4869}
+{"ts": "2026-10-27T22:00:51", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002603, "prompt_tokens": 1154, "completion_tokens": 273}
+{"ts": "2026-10-27T22:00:52", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002216, "prompt_tokens": 1154, "completion_tokens": 182}
+{"ts": "2026-10-27T22:00:52", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002284, "prompt_tokens": 1154, "completion_tokens": 198}
+{"ts": "2026-10-27T22:00:53", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002573, "prompt_tokens": 1154, "completion_tokens": 266}
+{"ts": "2026-10-27T22:00:58", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004679, "prompt_tokens": 1656, "completion_tokens": 614}
+{"ts": "2026-10-27T22:00:58", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.004652, "prompt_tokens": 1576, "completion_tokens": 631}
+{"ts": "2026-10-27T22:00:58", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006272, "prompt_tokens": 1560, "completion_tokens": 1017}
+{"ts": "2026-10-27T22:01:01", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.006957, "prompt_tokens": 1642, "completion_tokens": 1154}
+{"ts": "2026-10-27T22:01:02", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.002286, "prompt_tokens": 1091, "completion_tokens": 217}
+{"ts": "2026-10-27T22:01:13", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "self-check bass take", "usd": 0.011378, "prompt_tokens": 1527, "completion_tokens": 2228}
+{"ts": "2026-10-27T22:02:47", "provider": "meta", "model": "muse-image-1.0", "purpose": "musician card: bass-ray", "usd": 0.01}
+{"ts": "2026-10-27T22:03:25", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "live router", "usd": 0.003276, "prompt_tokens": 724, "completion_tokens": 558}
+{"ts": "2026-10-27T22:03:37", "provider": "baseten", "model": "meta-models/muse-spark-open-1026", "purpose": "live router", "usd": 0.005276, "prompt_tokens": 746, "completion_tokens": 1022}
+{"ts": "2026-10-27T22:04:08", "provider": "meta", "model": "muse-wonder-1.0", "purpose": "musician take: Ray (bass)", "usd": 0.25104, "prompt_tokens": 10485, "completion_tokens": 10455}

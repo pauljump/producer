@@ -17,7 +17,7 @@ for d in by_day.values():
         total[p] += v
 out = ["# Cost ledger", "", "Generated from `ledger/calls.jsonl` by `tools/ledger_report.py`. Every paid call is",
        "logged before its result is used. Credits: $150 Meta Model API, $100 Baseten, $100 Modal.",
-       "Code-enforced stops: $140 Meta, $95 Baseten, $20 a day across both.", "",
+       "Code-enforced stops: $140 Meta, $95 Baseten, $40 a day across both.", "",
        "| Provider | Spent | Credit |", "|---|---:|---:|"]
 credit = {"meta": 150, "baseten": 100, "modal": 100}
 for p in ("meta", "baseten", "modal"):

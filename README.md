@@ -54,7 +54,7 @@ Keys are read from `~/.secrets/meta-hackathon.env` (never from this repo):
 
 ## Spend
 
-Every paid call goes through `producer/models.py`, which refuses calls past $20 a day, $140 on
+Every paid call goes through `producer/models.py`, which refuses calls past $40 a day, $140 on
 Meta, or $95 on Baseten (below the $150 and $100 credits), and logs each call to
 `ledger/calls.jsonl`. `tools/ledger_report.py` writes [LEDGER.md](LEDGER.md).
 

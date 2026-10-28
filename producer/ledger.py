@@ -20,7 +20,7 @@ PRICES = {
 BASETEN_PRICE = {"meta-models/muse-spark-open-1026": (1.25, 4.25)}  # baseten.co/pricing, read 2026-10-27
 IMAGE_USD = 0.01
 TRANSCRIBE_USD_PER_HOUR = 0.18
-DAILY_STOP_USD = 20.0  # Paul's rule: ask before any pattern that could pass this in a day
+DAILY_STOP_USD = 40.0  # Paul raised the daily stop from $20 to $40 on 2026-10-27; ask before going past it
 # Hard stops below the prepaid credits ($150 Meta, $100 Baseten) so no card charge is possible.
 TOTAL_STOP_USD = {"meta": 140.0, "baseten": 95.0}
 
